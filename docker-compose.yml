@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:17-alpine
+    environment: {POSTGRES_DB: loanlens, POSTGRES_USER: loanlens, POSTGRES_PASSWORD: loanlens}
+    volumes: [loanlens_data:/var/lib/postgresql/data]
+    healthcheck: {test: ["CMD-SHELL", "pg_isready -U loanlens"], interval: 5s, timeout: 3s, retries: 10}
+  backend:
+    build: {context: ., dockerfile: Dockerfile.backend}
+    environment: {DATABASE_URL: postgresql+psycopg://loanlens:loanlens@db:5432/loanlens, CORS_ORIGINS: "http://localhost:3000,http://127.0.0.1:3000"}
+    ports: ["8000:8000"]
+    depends_on: {db: {condition: service_healthy}}
+  frontend:
+    build: {context: ., dockerfile: Dockerfile.frontend}
+    ports: ["3000:80"]
+    depends_on: [backend]
+volumes: {loanlens_data: {}}

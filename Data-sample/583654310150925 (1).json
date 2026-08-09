@@ -1,0 +1,364 @@
+{
+    "ITR": {
+        "ITR4": {
+            "CreationInfo": {
+                "IntermediaryCity": "Delhi",
+                "Digest": "5Qlj8rgHgx0MRjWlEQ0gWUlrCyV6JF8StwNNc4Wj/tI=",
+                "SWVersionNo": "R1",
+                "SWCreatedBy": "SW10012526",
+                "JSONCreatedBy": "SW10012526",
+                "JSONCreationDate": "2025-09-15"
+            },
+            "Form_ITR4": {
+                "SchemaVer": "Ver1.0",
+                "FormVer": "Ver1.0",
+                "FormName": "ITR-4",
+                "Description": "Indls, HUFs and Firms (other than LLP) having Inc u/s 44AD, 44ADA or 44AE",
+                "AssessmentYear": "2025"
+            },
+            "PersonalInfo": {
+                "Status": "I",
+                "AssesseeName": {
+                    "FirstName": "SHIVAMMA",
+                    "MiddleName": "KAUDALLI",
+                    "SurNameOrOrgName": "CHIKE GOWDA BORE GOWDA"
+                },
+                "PAN": "BBUPC0054Q",
+                "DOB": "1966-09-29",
+                "AadhaarCardNo": "988450649002",
+                "Address": {
+                    "ResidenceNo": "204, Survey No 7",
+                    "ResidenceName": "2nd main, 7th cross, Gandhipuram",
+                    "LocalityOrArea": "BANGALORE",
+                    "RoadOrStreet": "Nagondahalli",
+                    "CityOrTownOrDistrict": "BANGALORE",
+                    "StateCode": "15",
+                    "CountryCode": "91",
+                    "PinCode": 560066,
+                    "EmailAddress": "sunil.civigowda88@gmail.com",
+                    "CountryCodeMobile": 91,
+                    "MobileNo": 9731233358,
+                    "CountryCodeMobileNoSec": 91,
+                    "MobileNoSec": 6360741242
+                },
+                "EmployerCategory": "OTH"
+            },
+            "FilingStatus": {
+                "ItrFilingDueDate": "2025-07-31",
+                "ReturnFileSec": 11,
+                "OptOutNewTaxRegime_Form10IEA_AY24_25": "NA",
+                "NA_OptOutNewTaxReg": "N",
+                "SeventhProvisio139": "N",
+                "AsseseeRepFlg": "N"
+            },
+            "Refund": {
+                "BankAccountDtls": {
+                    "AddtnlBankDetails": [
+                        {
+                            "IFSCCode": "HDFC0002377",
+                            "BankName": "HDFC BANK",
+                            "BankAccountNo": "50100199864456",
+                            "AccountType": "SB",
+                            "UseForRefund": "true"
+                        },
+                        {
+                            "IFSCCode": "HDFC0002377",
+                            "BankName": "HDFC BANK",
+                            "BankAccountNo": "50200026295042",
+                            "AccountType": "CA",
+                            "UseForRefund": "true"
+                        }
+                    ]
+                },
+                "RefundDue": 111460
+            },
+            "ScheduleBP": {
+                "NatOfBus44AD": [
+                    {
+                        "NameOfBusiness": "OGS FACILITY MANAGEMENT ",
+                        "CodeAD": "16014",
+                        "Description": "FACILITY MANAGEMENT "
+                    }
+                ],
+                "PersumptiveInc44AD": {
+                    "GrsTotalTrnOver": 1300000,
+                    "GrsTrnOverBank": 800000,
+                    "GrsTotalTrnOverInCash": 500000,
+                    "GrsTrnOverAnyOthMode": 0,
+                    "PersumptiveInc44AD6Per": 800000,
+                    "PersumptiveInc44AD8Per": 500000,
+                    "TotPersumptiveInc44AD": 1300000
+                },
+                "PersumptiveInc44AE": {
+                    "TotalPersumptiveInc": 0,
+                    "SalInterestByFirm": 0,
+                    "TotPersumInc44AE": 0,
+                    "IncChargeableUnderBus": 1300000
+                },
+                "FinanclPartclrOfBusiness": {
+                    "PartnerMemberOwnCapital": 0,
+                    "SecuredLoans": 0,
+                    "UnSecuredLoans": 0,
+                    "Advances": 0,
+                    "SundryCreditors": 0,
+                    "OthrCurrLiab": 0,
+                    "TotCapLiabilities": 0,
+                    "FixedAssets": 0,
+                    "Inventories": 0,
+                    "SundryDebtors": 0,
+                    "BalWithBanks": 0,
+                    "CashInHand": 0,
+                    "LoansAndAdvances": 0,
+                    "OtherAssets": 0,
+                    "TotalAssets": 0
+                }
+            },
+            "IncomeDeductions": {
+                "GrossSalary": 0,
+                "IncomeNotified89A": 0,
+                "AllwncExemptUs10": {
+                    "TotalAllwncExemptUs10": 0
+                },
+                "Increliefus89A": 0,
+                "NetSalary": 0,
+                "DeductionUs16": 0,
+                "DeductionUs16ia": 0,
+                "EntertainmntalwncUs16ii": 0,
+                "ProfessionalTaxUs16iii": 0,
+                "IncomeFromSal": 0,
+                "AnnualValue": 0,
+                "AnnualValue30Percent": 0,
+                "InterestPayable": 0,
+                "ArrearsUnrealizedRentRcvd": 0,
+                "TotalIncomeOfHP": 0,
+                "OthersInc": {
+                    "OthersIncDtlsOthSrc": [
+                        {
+                            "OthSrcNatureDesc": "SAV",
+                            "OthSrcOthAmount": 375
+                        },
+                        {
+                            "OthSrcNatureDesc": "IFD",
+                            "OthSrcOthAmount": 4501
+                        },
+                        {
+                            "OthSrcNatureDesc": "DIV",
+                            "OthSrcOthAmount": 11400,
+                            "DividendInc": {
+                                "DateRange": {
+                                    "Upto15Of6": 11400,
+                                    "Upto15Of9": 0,
+                                    "Up16Of9To15Of12": 0,
+                                    "Up16Of12To15Of3": 0,
+                                    "Up16Of3To31Of3": 0
+                                }
+                            }
+                        },
+                        {
+                            "OthSrcNatureDesc": "TAX",
+                            "OthSrcOthAmount": 973
+                        }
+                    ]
+                },
+                "IncomeOthSrc": 17249,
+                "GrossTotIncome": 1317249,
+                "GrossTotIncomeIncLTCG112A": 1317249,
+                "UsrDeductUndChapVIA": {
+                    "Section80C": 0,
+                    "Section80CCC": 0,
+                    "Section80CCDEmployeeOrSE": 0,
+                    "Section80CCD1B": 0,
+                    "Section80CCDEmployer": 0,
+                    "AnyOthSec80CCH": 0,
+                    "Section80D": 0,
+                    "Section80DD": 0,
+                    "Section80DDB": 0,
+                    "Section80E": 0,
+                    "Section80EE": 0,
+                    "Section80EEA": 0,
+                    "Section80EEB": 0,
+                    "Section80G": 0,
+                    "Section80GG": 0,
+                    "Section80GGC": 0,
+                    "Section80TTA": 0,
+                    "Section80TTB": 0,
+                    "Section80U": 0,
+                    "TotalChapVIADeductions": 0
+                },
+                "DeductUndChapVIA": {
+                    "Section80C": 0,
+                    "Section80CCC": 0,
+                    "Section80CCDEmployeeOrSE": 0,
+                    "Section80CCD1B": 0,
+                    "Section80CCDEmployer": 0,
+                    "AnyOthSec80CCH": 0,
+                    "Section80D": 0,
+                    "Section80DD": 0,
+                    "Section80DDB": 0,
+                    "Section80E": 0,
+                    "Section80EE": 0,
+                    "Section80EEA": 0,
+                    "Section80EEB": 0,
+                    "Section80G": 0,
+                    "Section80GG": 0,
+                    "Section80GGC": 0,
+                    "Section80TTA": 0,
+                    "Section80TTB": 0,
+                    "Section80U": 0,
+                    "TotalChapVIADeductions": 0
+                },
+                "TotalIncome": 1317250,
+                "IncomeFromBusinessProf": 1300000
+            },
+            "TDSonOthThanSals": {
+                "TDSonOthThanSalDtls": [
+                    {
+                        "TANOfDeductor": "HYDM03082C",
+                        "TDSSection": "94C",
+                        "BroughtFwdTDSAmt": 0,
+                        "TDSDeducted": 9996,
+                        "TDSClaimed": 9996,
+                        "GrossAmount": 569477,
+                        "HeadOfIncome": "BP",
+                        "TDSCreditCarriedFwd": 0
+                    },
+                    {
+                        "TANOfDeductor": "BLRB20068G",
+                        "TDSSection": "94C",
+                        "BroughtFwdTDSAmt": 0,
+                        "TDSDeducted": 1782,
+                        "TDSClaimed": 1782,
+                        "GrossAmount": 175438,
+                        "HeadOfIncome": "BP",
+                        "TDSCreditCarriedFwd": 0
+                    },
+                    {
+                        "TANOfDeductor": "HYDM24114G",
+                        "TDSSection": "94C",
+                        "BroughtFwdTDSAmt": 0,
+                        "TDSDeducted": 3987,
+                        "TDSClaimed": 3987,
+                        "GrossAmount": 384174,
+                        "HeadOfIncome": "BP",
+                        "TDSCreditCarriedFwd": 0
+                    },
+                    {
+                        "TANOfDeductor": "BLRP23490F",
+                        "TDSSection": "94C",
+                        "BroughtFwdTDSAmt": 0,
+                        "TDSDeducted": 874,
+                        "TDSClaimed": 874,
+                        "GrossAmount": 87350,
+                        "HeadOfIncome": "BP",
+                        "TDSCreditCarriedFwd": 0
+                    },
+                    {
+                        "TANOfDeductor": "BLRS66528A",
+                        "TDSSection": "94C",
+                        "BroughtFwdTDSAmt": 0,
+                        "TDSDeducted": 792,
+                        "TDSClaimed": 792,
+                        "GrossAmount": 79200,
+                        "HeadOfIncome": "BP",
+                        "TDSCreditCarriedFwd": 0
+                    },
+                    {
+                        "TANOfDeductor": "BLRT13388E",
+                        "TDSSection": "94C",
+                        "BroughtFwdTDSAmt": 0,
+                        "TDSDeducted": 21369,
+                        "TDSClaimed": 21369,
+                        "GrossAmount": 2136826,
+                        "HeadOfIncome": "BP",
+                        "TDSCreditCarriedFwd": 0
+                    },
+                    {
+                        "TANOfDeductor": "BLRP32724G",
+                        "TDSSection": "94C",
+                        "BroughtFwdTDSAmt": 0,
+                        "TDSDeducted": 46828,
+                        "TDSClaimed": 46828,
+                        "GrossAmount": 3137225,
+                        "HeadOfIncome": "BP",
+                        "TDSCreditCarriedFwd": 0
+                    },
+                    {
+                        "TANOfDeductor": "BLRG19860B",
+                        "TDSSection": "94C",
+                        "BroughtFwdTDSAmt": 0,
+                        "TDSDeducted": 37460,
+                        "TDSClaimed": 37460,
+                        "GrossAmount": 3745913,
+                        "HeadOfIncome": "BP",
+                        "TDSCreditCarriedFwd": 0
+                    },
+                    {
+                        "TANOfDeductor": "BLRT22891B",
+                        "TDSSection": "94C",
+                        "BroughtFwdTDSAmt": 0,
+                        "TDSDeducted": 37283,
+                        "TDSClaimed": 37283,
+                        "GrossAmount": 3728300,
+                        "HeadOfIncome": "BP",
+                        "TDSCreditCarriedFwd": 0
+                    },
+                    {
+                        "TANOfDeductor": "BLRA21491B",
+                        "TDSSection": "94C",
+                        "BroughtFwdTDSAmt": 0,
+                        "TDSDeducted": 58677,
+                        "TDSClaimed": 58677,
+                        "GrossAmount": 2933837,
+                        "HeadOfIncome": "BP",
+                        "TDSCreditCarriedFwd": 0
+                    }
+                ],
+                "TotalTDSonOthThanSals": 219048
+            },
+            "ScheduleTDS3Dtls": {
+                "TotalTDS3Details": 0
+            },
+            "ScheduleTCS": {
+                "TotalSchTCS": 0
+            },
+            "ScheduleIT": {
+                "TotalTaxPayments": 0
+            },
+            "TaxPaid": {
+                "TaxesPaid": {
+                    "TotalTaxesPaid": 219048,
+                    "TCS": 0,
+                    "AdvanceTax": 0,
+                    "SelfAssessmentTax": 0,
+                    "TDS": 219048
+                },
+                "BalTaxPayable": 0
+            },
+            "TaxComputation": {
+                "TotalTaxPayable": 103450,
+                "Rebate87A": 0,
+                "TaxPayableOnRebate": 103450,
+                "EducationCess": 4138,
+                "GrossTaxLiability": 107588,
+                "Section89": 0,
+                "NetTaxLiability": 107588,
+                "IntrstPay": {
+                    "IntrstPayUs234A": 0,
+                    "IntrstPayUs234B": 0,
+                    "IntrstPayUs234C": 0,
+                    "LateFilingFee234F": 0
+                },
+                "TotTaxPlusIntrstPay": 107588
+            },
+            "Verification": {
+                "Declaration": {
+                    "AssesseeVerName": "SHIVAMMA KAUDALLI CHIKE GOWDA BORE GOWDA",
+                    "FatherName": "BORE GOWDA",
+                    "AssesseeVerPAN": "BBUPC0054Q"
+                },
+                "Capacity": "S",
+                "Place": "Bengaluru"
+            }
+        }
+    }
+}

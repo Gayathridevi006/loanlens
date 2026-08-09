@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LoanDesk — AI Loan Processing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --black:#0a0a0a;
+  --gray-950:#111111;
+  --gray-900:#1a1a1a;
+  --gray-800:#2a2a2a;
+  --gray-700:#3a3a3a;
+  --gray-600:#555555;
+  --gray-400:#888888;
+  --gray-300:#aaaaaa;
+  --gray-200:#cccccc;
+  --gray-100:#e8e8e8;
+  --gray-50:#f4f4f4;
+  --white:#ffffff;
+  --accent:#ffffff;
+  --accent-dim:rgba(255,255,255,0.08);
+  --green:#22c55e;
+  --green-dim:rgba(34,197,94,0.1);
+  --amber:#f59e0b;
+  --amber-dim:rgba(245,158,11,0.1);
+  --red:#ef4444;
+  --red-dim:rgba(239,68,68,0.1);
+  --blue:#60a5fa;
+  --blue-dim:rgba(96,165,250,0.1);
+  --border:rgba(255,255,255,0.08);
+  --border-strong:rgba(255,255,255,0.15);
+  --font:'Inter',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --r:6px;
+  --r-lg:10px;
+}
+
+body{font-family:var(--font);background:var(--black);color:var(--white);-webkit-font-smoothing:antialiased;height:100vh;overflow:hidden}
+
+/* ── LAYOUT ── */
+.shell{display:flex;height:100vh;width:100%}
+
+/* ── SIDEBAR ── */
+.sidebar{width:220px;flex-shrink:0;background:var(--gray-950);border-right:1px solid var(--border);display:flex;flex-direction:column}
+.logo-wrap{padding:20px 18px 18px;border-bottom:1px solid var(--border)}
+.logo-icon{width:32px;height:32px;background:var(--white);border-radius:7px;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+.logo-icon svg{width:18px;height:18px;color:var(--black)}
+.logo-name{font-size:15px;font-weight:700;letter-spacing:-0.02em;color:var(--white)}
+.logo-sub{font-size:10px;color:var(--gray-600);font-family:var(--mono);margin-top:2px;letter-spacing:0.06em;text-transform:uppercase}
+.nav{padding:14px 10px;flex:1}
+.nav-section-label{font-size:9px;font-family:var(--mono);color:var(--gray-600);letter-spacing:0.12em;text-transform:uppercase;padding:0 8px;margin-bottom:6px;margin-top:14px}
+.nav-section-label:first-child{margin-top:0}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:var(--r);cursor:pointer;font-size:13px;color:var(--gray-400);transition:all .15s;margin-bottom:2px;position:relative;user-select:none}
+.nav-item svg{width:15px;height:15px;flex-shrink:0}
+.nav-item:hover{background:var(--accent-dim);color:var(--gray-200)}
+.nav-item.active{background:var(--white);color:var(--black);font-weight:600}
+.nav-item.active svg{color:var(--black)}
+.nav-badge{margin-left:auto;font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:10px;background:rgba(255,255,255,0.12);color:var(--gray-300)}
+.nav-item.active .nav-badge{background:rgba(0,0,0,0.15);color:var(--gray-700)}
+.sidebar-footer{padding:14px 14px 18px;border-top:1px solid var(--border)}
+.user-row{display:flex;align-items:center;gap:10px}
+.user-av{width:30px;height:30px;border-radius:50%;background:var(--gray-800);border:1px solid var(--border-strong);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--gray-200);flex-shrink:0}
+.user-name{font-size:12px;font-weight:500;color:var(--gray-200)}
+.user-role{font-size:10px;color:var(--gray-600);font-family:var(--mono);margin-top:1px}
+.ai-dot{display:flex;align-items:center;gap:6px;margin-top:10px;font-size:10px;font-family:var(--mono);color:var(--green)}
+.dot-pulse{width:6px;height:6px;border-radius:50%;background:var(--green);position:relative;flex-shrink:0}
+.dot-pulse::after{content:'';position:absolute;inset:-3px;border-radius:50%;background:var(--green);opacity:.3;animation:ping 1.8s ease-out infinite}
+@keyframes ping{0%{transform:scale(1);opacity:.3}100%{transform:scale(2.2);opacity:0}}
+
+/* ── MAIN ── */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.topbar{padding:14px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;background:var(--gray-950)}
+.topbar-left .page-title{font-size:15px;font-weight:700;letter-spacing:-0.01em}
+.topbar-left .page-sub{font-size:11px;color:var(--gray-600);font-family:var(--mono);margin-top:2px}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.topbar-btn{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:var(--r);border:1px solid var(--border);background:transparent;color:var(--gray-300);font-size:11px;font-family:var(--font);cursor:pointer;transition:all .15s}
+.topbar-btn:hover{border-color:var(--border-strong);color:var(--white);background:var(--accent-dim)}
+.topbar-btn svg{width:13px;height:13px}
+
+/* ── PANELS ── */
+.panel{display:none;flex:1;overflow:hidden}
+.panel.active{display:flex;flex-direction:column}
+
+/* ── DASHBOARD ── */
+.dash-body{flex:1;overflow-y:auto;padding:22px 26px}
+.dash-body::-webkit-scrollbar{width:4px}
+.dash-body::-webkit-scrollbar-thumb{background:var(--gray-800);border-radius:2px}
+.metrics-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:26px}
+.metric{background:var(--gray-900);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px;position:relative;overflow:hidden;cursor:default}
+.metric::after{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent)}
+.metric-ico{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.metric-ico svg{width:14px;height:14px}
+.metric-ico.w{background:var(--white);color:var(--black)}
+.metric-ico.g{background:var(--green-dim);color:var(--green)}
+.metric-ico.a{background:var(--amber-dim);color:var(--amber)}
+.metric-ico.r{background:var(--red-dim);color:var(--red)}
+.metric-val{font-size:28px;font-weight:700;letter-spacing:-0.03em;line-height:1}
+.metric-val sup{font-size:14px;font-weight:500;color:var(--gray-400);letter-spacing:0}
+.metric-lbl{font-size:11px;color:var(--gray-500);margin-top:6px}
+.metric-trend{font-size:10px;font-family:var(--mono);margin-top:4px}
+.metric-trend.up{color:var(--green)}.metric-trend.dn{color:var(--red)}
+
+.section-head{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--gray-400);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.section-head::after{content:'';flex:1;height:1px;background:var(--border)}
+
+.loan-tbl{width:100%;border-collapse:collapse}
+.loan-tbl th{text-align:left;padding:9px 12px;font-size:10px;font-family:var(--mono);color:var(--gray-600);letter-spacing:0.08em;text-transform:uppercase;border-bottom:1px solid var(--border)}
+.loan-tbl td{padding:11px 12px;font-size:13px;border-bottom:1px solid var(--border)}
+.loan-tbl tbody tr{cursor:pointer;transition:background .12s}
+.loan-tbl tbody tr:hover td{background:var(--gray-900)}
+.loan-tbl tbody tr:last-child td{border-bottom:none}
+.td-primary{font-weight:500;color:var(--white)}
+.td-secondary{font-size:10px;color:var(--gray-600);font-family:var(--mono);margin-top:2px}
+.td-mono{font-family:var(--mono);font-size:12px;color:var(--gray-300)}
+.badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:10px;font-family:var(--mono);font-weight:500;letter-spacing:0.04em}
+.badge-ok{background:var(--green-dim);color:var(--green);border:1px solid rgba(34,197,94,.2)}
+.badge-warn{background:var(--amber-dim);color:var(--amber);border:1px solid rgba(245,158,11,.2)}
+.badge-bad{background:var(--red-dim);color:var(--red);border:1px solid rgba(239,68,68,.2)}
+.badge-pend{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(96,165,250,.2)}
+.badge-neutral{background:rgba(255,255,255,.06);color:var(--gray-300);border:1px solid var(--border)}
+.risk-bar-wrap{display:flex;align-items:center;gap:8px}
+.risk-bar{flex:1;height:2px;background:var(--gray-800);border-radius:2px;overflow:hidden}
+.risk-fill{height:100%;border-radius:2px}
+.fill-g{background:var(--green)}.fill-a{background:var(--amber)}.fill-r{background:var(--red)}
+.risk-txt{font-size:10px;font-family:var(--mono);min-width:26px}
+.rt-g{color:var(--green)}.rt-a{color:var(--amber)}.rt-r{color:var(--red)}
+
+.dash-bottom{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}
+.info-card{background:var(--gray-900);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px}
+.info-card-hd{font-size:11px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;color:var(--gray-400);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.info-card-hd svg{width:12px;height:12px}
+.pipeline-row{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:12px;color:var(--gray-300);border-bottom:1px solid var(--border)}
+.pipeline-row:last-child{border-bottom:none}
+.pipeline-dot{width:6px;height:6px;border-radius:50%;background:var(--green);flex-shrink:0}
+.kyc-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;font-size:12px;color:var(--gray-400);border-bottom:1px solid var(--border)}
+.kyc-row:last-child{border-bottom:none}
+.kyc-val{font-family:var(--mono);font-size:11px}
+
+/* ── AI CHAT PANEL ── */
+.chat-layout{display:flex;flex:1;overflow:hidden}
+.chat-applicants{width:200px;flex-shrink:0;border-right:1px solid var(--border);display:flex;flex-direction:column;background:var(--gray-950)}
+.ca-head{padding:14px 14px 10px;font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray-600);font-family:var(--mono);border-bottom:1px solid var(--border)}
+.ca-list{flex:1;overflow-y:auto;padding:8px}
+.ca-list::-webkit-scrollbar{width:3px}
+.ca-list::-webkit-scrollbar-thumb{background:var(--gray-800)}
+.appl-card{padding:10px 10px;border-radius:var(--r);cursor:pointer;margin-bottom:4px;border:1px solid transparent;transition:all .12s}
+.appl-card:hover{background:var(--accent-dim);border-color:var(--border)}
+.appl-card.sel{background:var(--white);border-color:var(--white)}
+.appl-card.sel .ac-name{color:var(--black)}
+.appl-card.sel .ac-loan{color:var(--gray-700)}
+.appl-card.sel .ac-score{color:var(--black)}
+.ac-name{font-size:12px;font-weight:600;color:var(--white)}
+.ac-loan{font-size:10px;font-family:var(--mono);color:var(--gray-600);margin-top:2px}
+.ac-score{font-size:18px;font-weight:700;font-family:var(--mono);color:var(--gray-300);margin-top:4px;letter-spacing:-0.02em}
+.score-ok{color:var(--green)!important}.score-warn{color:var(--amber)!important}.score-bad{color:var(--red)!important}
+.appl-card.sel .score-ok,.appl-card.sel .score-warn,.appl-card.sel .score-bad{color:var(--black)!important}
+
+.chat-main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.ctx-strip{padding:10px 18px;border-bottom:1px solid var(--border);background:var(--gray-950);display:flex;align-items:center;gap:16px;flex-shrink:0;flex-wrap:wrap}
+.ctx-chip{font-size:11px;font-family:var(--mono);display:flex;align-items:center;gap:5px;color:var(--gray-400)}
+.ctx-chip span{color:var(--white);font-weight:500}
+.ctx-chip::after{content:'·';margin-left:8px;color:var(--gray-700)}
+.ctx-chip:last-child::after{display:none}
+
+.chat-msgs{flex:1;overflow-y:auto;padding:20px 20px 8px}
+.chat-msgs::-webkit-scrollbar{width:4px}
+.chat-msgs::-webkit-scrollbar-thumb{background:var(--gray-800);border-radius:2px}
+.msg{display:flex;gap:10px;margin-bottom:16px;align-items:flex-start}
+.msg-av{width:28px;height:28px;border-radius:7px;font-size:10px;font-weight:700;font-family:var(--mono);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.msg-av.ai{background:var(--white);color:var(--black)}
+.msg-av.user{background:var(--gray-800);color:var(--gray-200);border:1px solid var(--border-strong)}
+.msg-bub{font-size:13px;line-height:1.6;color:var(--gray-200);padding:10px 13px;background:var(--gray-900);border-radius:0 var(--r-lg) var(--r-lg) var(--r-lg);border:1px solid var(--border);max-width:580px}
+.msg.user{flex-direction:row-reverse}
+.msg.user .msg-bub{background:var(--white);color:var(--black);border-color:var(--white);border-radius:var(--r-lg) 0 var(--r-lg) var(--r-lg)}
+.msg-bub strong{color:var(--white);font-weight:600}
+.msg.user .msg-bub strong{color:var(--black)}
+
+/* doc citation pill */
+.doc-pill{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,0.06);border:1px solid var(--border);border-radius:4px;padding:1px 7px;font-size:10px;font-family:var(--mono);color:var(--gray-300);margin-top:6px}
+.doc-pill svg{width:10px;height:10px}
+
+.typing-ind{padding:0 20px 8px;display:flex;align-items:center;gap:4px;opacity:0;transition:opacity .2s;flex-shrink:0}
+.typing-ind.on{opacity:1}
+.typing-dot{width:5px;height:5px;border-radius:50%;background:var(--gray-600);animation:blink 1.2s ease-in-out infinite}
+.typing-dot:nth-child(2){animation-delay:.2s}
+.typing-dot:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{transform:scale(.8);opacity:.5}40%{transform:scale(1.2);opacity:1}}
+
+.quick-row{padding:8px 18px;display:flex;gap:6px;flex-wrap:wrap;flex-shrink:0;border-top:1px solid var(--border)}
+.qbtn{padding:5px 12px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--gray-300);font-size:11px;font-family:var(--font);cursor:pointer;transition:all .15s;white-space:nowrap}
+.qbtn:hover{border-color:var(--border-strong);color:var(--white);background:var(--accent-dim)}
+
+.chat-input-area{padding:12px 18px 14px;display:flex;gap:8px;flex-shrink:0;border-top:1px solid var(--border)}
+.chat-textarea{flex:1;background:var(--gray-900);border:1px solid var(--border);border-radius:var(--r-lg);padding:10px 14px;font-size:13px;font-family:var(--font);color:var(--white);resize:none;outline:none;transition:border-color .2s;height:44px;line-height:1.5}
+.chat-textarea:focus{border-color:var(--border-strong)}
+.chat-textarea::placeholder{color:var(--gray-600)}
+.send-btn{width:44px;height:44px;border-radius:var(--r-lg);background:var(--white);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity .15s}
+.send-btn:hover{opacity:.85}
+.send-btn svg{width:16px;height:16px;color:var(--black)}
+
+/* ── DOCS PANEL ── */
+.docs-layout{display:flex;flex:1;overflow:hidden}
+
+/* LEFT: file list */
+.doc-sidebar{width:240px;flex-shrink:0;border-right:1px solid var(--border);display:flex;flex-direction:column;background:var(--gray-950)}
+.ds-head{padding:14px 14px 10px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.ds-head-title{font-size:10px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray-600);font-family:var(--mono)}
+.upload-btn{display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:var(--r);border:1px solid var(--border-strong);background:transparent;color:var(--white);font-size:11px;font-family:var(--font);cursor:pointer;transition:all .15s;white-space:nowrap}
+.upload-btn:hover{background:var(--white);color:var(--black)}
+.upload-btn svg{width:12px;height:12px}
+.doc-list{flex:1;overflow-y:auto;padding:8px}
+.doc-list::-webkit-scrollbar{width:3px}
+.doc-list::-webkit-scrollbar-thumb{background:var(--gray-800)}
+.doc-item{padding:10px 10px;border-radius:var(--r);cursor:pointer;margin-bottom:4px;border:1px solid transparent;transition:all .12s;display:flex;align-items:flex-start;gap:10px}
+.doc-item:hover{background:var(--accent-dim);border-color:var(--border)}
+.doc-item.sel{background:var(--white);border-color:var(--white)}
+.doc-item.sel .di-name,.doc-item.sel .di-who,.doc-item.sel .di-type{color:var(--black)!important}
+.doc-item.sel .di-status{color:var(--gray-700)!important}
+.di-icon{width:28px;height:28px;border-radius:6px;background:var(--gray-800);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.di-icon svg{width:13px;height:13px;color:var(--gray-400)}
+.doc-item.sel .di-icon{background:var(--gray-200)}
+.doc-item.sel .di-icon svg{color:var(--black)}
+.di-name{font-size:12px;font-weight:600;color:var(--white);line-height:1.3}
+.di-who{font-size:10px;font-family:var(--mono);color:var(--gray-600);margin-top:2px}
+.di-status{font-size:10px;font-family:var(--mono);margin-top:3px;display:flex;align-items:center;gap:4px}
+.ds-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.ds-ok{background:var(--green)}.ds-warn{background:var(--amber)}.ds-bad{background:var(--red)}.ds-blue{background:var(--blue)}
+
+/* upload zone */
+.upload-zone{margin:10px;border:1px dashed var(--border-strong);border-radius:var(--r-lg);padding:16px;text-align:center;cursor:pointer;transition:all .15s}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--white);background:var(--accent-dim)}
+.upload-zone svg{width:20px;height:20px;color:var(--gray-600);margin:0 auto 6px}
+.upload-zone p{font-size:11px;color:var(--gray-500);line-height:1.5}
+.upload-zone strong{color:var(--gray-300)}
+
+/* RIGHT: doc detail + chat */
+.doc-main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.doc-detail-area{flex:1;overflow-y:auto;padding:20px 22px}
+.doc-detail-area::-webkit-scrollbar{width:4px}
+.doc-detail-area::-webkit-scrollbar-thumb{background:var(--gray-800);border-radius:2px}
+.doc-title-row{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;gap:12px}
+.doc-title{font-size:16px;font-weight:700;letter-spacing:-0.01em}
+.empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--gray-700);text-align:center;gap:10px}
+.empty-state svg{width:36px;height:36px}
+.empty-state p{font-size:13px;line-height:1.6}
+
+.alert-row{display:flex;align-items:flex-start;gap:8px;padding:10px 12px;border-radius:var(--r);font-size:12px;margin-bottom:6px;line-height:1.5}
+.alert-row svg{width:13px;height:13px;flex-shrink:0;margin-top:1px}
+.alert-risk{background:var(--red-dim);border:1px solid rgba(239,68,68,.2);color:var(--red)}
+.alert-warn{background:var(--amber-dim);border:1px solid rgba(245,158,11,.2);color:var(--amber)}
+.alert-ok{background:var(--green-dim);border:1px solid rgba(34,197,94,.2);color:var(--green)}
+
+.extract-box{background:var(--gray-900);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;margin-top:14px}
+.extract-head{padding:10px 14px;border-bottom:1px solid var(--border);font-size:10px;font-family:var(--mono);color:var(--gray-500);display:flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:0.08em}
+.extract-head svg{width:11px;height:11px}
+.extract-grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+.extract-cell{padding:10px 14px;border-bottom:1px solid var(--border);border-right:1px solid var(--border)}
+.extract-cell:nth-child(even){border-right:none}
+.extract-cell:nth-last-child(-n+2){border-bottom:none}
+.ex-k{font-size:10px;font-family:var(--mono);color:var(--gray-600);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:3px}
+.ex-v{font-size:13px;font-weight:500;color:var(--white)}
+
+/* doc Q&A strip */
+.doc-qa-strip{border-top:1px solid var(--border);flex-shrink:0}
+.doc-qa-msgs{max-height:160px;overflow-y:auto;padding:12px 16px 4px}
+.doc-qa-msgs::-webkit-scrollbar{width:3px}
+.doc-qa-msgs::-webkit-scrollbar-thumb{background:var(--gray-800)}
+.dq-msg{margin-bottom:10px;font-size:12px;line-height:1.5}
+.dq-msg.ai .dq-label{color:var(--gray-500);font-family:var(--mono);font-size:10px;margin-bottom:3px}
+.dq-msg.user .dq-label{color:var(--blue);font-family:var(--mono);font-size:10px;margin-bottom:3px}
+.dq-msg .dq-text{color:var(--gray-200)}
+.dq-msg.user .dq-text{color:var(--white)}
+.doc-qa-typing{padding:0 16px 4px;display:flex;align-items:center;gap:4px;opacity:0;transition:opacity .2s;height:18px}
+.doc-qa-typing.on{opacity:1}
+.doc-qa-input-row{padding:10px 14px 12px;display:flex;gap:7px}
+.doc-qa-input{flex:1;background:var(--gray-900);border:1px solid var(--border);border-radius:var(--r);padding:8px 12px;font-size:12px;font-family:var(--font);color:var(--white);outline:none;transition:border-color .2s}
+.doc-qa-input:focus{border-color:var(--border-strong)}
+.doc-qa-input::placeholder{color:var(--gray-600)}
+.doc-qa-send{width:34px;height:34px;border-radius:var(--r);background:var(--white);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.doc-qa-send:hover{opacity:.85}
+.doc-qa-send svg{width:13px;height:13px;color:var(--black)}
+
+/* doc quick pills */
+.doc-quick-row{padding:8px 14px 0;display:flex;gap:5px;flex-wrap:wrap}
+.dqpill{padding:4px 10px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--gray-400);font-size:10px;font-family:var(--font);cursor:pointer;transition:all .15s}
+.dqpill:hover{border-color:var(--border-strong);color:var(--white)}
+
+/* ── APPROVAL ── */
+.approval-body{flex:1;overflow-y:auto;padding:20px 26px}
+.approval-body::-webkit-scrollbar{width:4px}
+.approval-body::-webkit-scrollbar-thumb{background:var(--gray-800);border-radius:2px}
+.appr-card{background:var(--gray-900);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;margin-bottom:16px;position:relative;overflow:hidden}
+.decision-banner{padding:8px 14px;border-radius:var(--r);font-size:12px;font-weight:500;display:none;align-items:center;gap:7px;margin-bottom:14px}
+.decision-banner.show{display:flex}
+.db-approved{background:var(--green-dim);border:1px solid rgba(34,197,94,.25);color:var(--green)}
+.db-flagged{background:var(--amber-dim);border:1px solid rgba(245,158,11,.25);color:var(--amber)}
+.db-rejected{background:var(--red-dim);border:1px solid rgba(239,68,68,.25);color:var(--red)}
+.appr-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
+.appr-name{font-size:16px;font-weight:700;letter-spacing:-0.01em}
+.appr-meta{font-size:11px;font-family:var(--mono);color:var(--gray-500);margin-top:3px}
+.ai-rec-box{text-align:right}
+.ai-rec-val{font-size:18px;font-weight:700;font-family:var(--mono)}
+.ai-rec-lbl{font-size:10px;color:var(--gray-600);font-family:var(--mono);margin-top:2px;text-transform:uppercase;letter-spacing:0.06em}
+.appr-summary{font-size:12px;color:var(--gray-400);line-height:1.6;margin-bottom:14px;padding:10px 12px;background:var(--gray-950);border-radius:var(--r);border:1px solid var(--border)}
+.criteria-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.crit-item{background:var(--gray-950);border:1px solid var(--border);border-radius:var(--r);padding:10px 12px}
+.crit-lbl{font-size:10px;color:var(--gray-600);font-family:var(--mono);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:5px}
+.crit-val{font-size:13px;font-weight:600;font-family:var(--mono)}
+.cv-ok{color:var(--green)}.cv-warn{color:var(--amber)}.cv-bad{color:var(--red)}
+.action-row{display:flex;gap:8px}
+.btn-approve{padding:8px 16px;border-radius:var(--r);border:1px solid rgba(34,197,94,.4);background:var(--green-dim);color:var(--green);font-size:12px;font-family:var(--font);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px}
+.btn-approve:hover{background:var(--green);color:var(--black)}
+.btn-review{padding:8px 16px;border-radius:var(--r);border:1px solid rgba(245,158,11,.4);background:var(--amber-dim);color:var(--amber);font-size:12px;font-family:var(--font);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px}
+.btn-review:hover{background:var(--amber);color:var(--black)}
+.btn-reject{padding:8px 16px;border-radius:var(--r);border:1px solid rgba(239,68,68,.4);background:var(--red-dim);color:var(--red);font-size:12px;font-family:var(--font);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:6px}
+.btn-reject:hover{background:var(--red);color:var(--white)}
+.action-row button svg{width:12px;height:12px}
+
+/* hidden file input */
+#file-input{display:none}
+
+/* progress */
+.upload-progress{padding:0 10px 8px;display:none}
+.up-bar{height:2px;background:var(--gray-800);border-radius:2px;overflow:hidden}
+.up-fill{height:100%;background:var(--white);border-radius:2px;transition:width .3s}
+.up-lbl{font-size:10px;font-family:var(--mono);color:var(--gray-600);margin-top:4px}
+
+/* response formatting */
+.msg-bub ul,.msg-bub ol{padding-left:16px;margin-top:6px}
+.msg-bub li{margin-bottom:3px}
+.msg-bub br{line-height:1.8}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <div class="logo-wrap">
+      <div class="logo-icon">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 4a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2V4zm0 8a2 2 0 012-2h12a2 2 0 012 2v2a2 2 0 01-2 2H4a2 2 0 01-2-2v-2z"/></svg>
+      </div>
+      <div class="logo-name">LoanDesk</div>
+      <div class="logo-sub">AI Processing</div>
+    </div>
+    <div class="nav">
+      <div class="nav-section-label">Workspace</div>
+      <div class="nav-item active" onclick="showPanel('dashboard',this)">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm0 6a1 1 0 011-1h4a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zm10 0a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 01-1 1h-2a1 1 0 01-1-1v-2zm0 5a1 1 0 011-1h2a1 1 0 011 1v1a1 1 0 01-1 1h-2a1 1 0 01-1-1v-1z"/></svg>
+        Dashboard
+        <span class="nav-badge">47</span>
+      </div>
+      <div class="nav-item" onclick="showPanel('chat',this)">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"/><path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"/></svg>
+        AI Assistant
+      </div>
+      <div class="nav-item" onclick="showPanel('docs',this)">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/></svg>
+        Documents
+        <span class="nav-badge" id="doc-count-badge">5</span>
+      </div>
+      <div class="nav-item" onclick="showPanel('approval',this)">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+        Approvals
+        <span class="nav-badge">3</span>
+      </div>
+    </div>
+    <div class="sidebar-footer">
+      <div class="user-row">
+        <div class="user-av">GD</div>
+        <div>
+          <div class="user-name">Gayathri Devi</div>
+          <div class="user-role">Loan Officer</div>
+        </div>
+      </div>
+      <div class="ai-dot"><span class="dot-pulse"></span>AI Engine Active</div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-left">
+        <div class="page-title" id="page-title">Overview Dashboard</div>
+        <div class="page-sub">JUNE 12, 2026 · 47 APPLICATIONS TODAY</div>
+      </div>
+      <div class="topbar-right">
+        <button class="topbar-btn" onclick="showPanel('docs',document.querySelectorAll('.nav-item')[2])">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+          Upload Doc
+        </button>
+      </div>
+    </div>
+
+    <!-- ── DASHBOARD ── -->
+    <div class="panel active" id="panel-dashboard">
+      <div class="dash-body">
+        <div class="metrics-row">
+          <div class="metric">
+            <div class="metric-ico w"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/></svg></div>
+            <div class="metric-val">47</div>
+            <div class="metric-lbl">Applications Today</div>
+            <div class="metric-trend up">↑ +12% vs yesterday</div>
+          </div>
+          <div class="metric">
+            <div class="metric-ico g"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></div>
+            <div class="metric-val">31</div>
+            <div class="metric-lbl">AI Approved</div>
+            <div class="metric-trend up">↑ 66% approval rate</div>
+          </div>
+          <div class="metric">
+            <div class="metric-ico a"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/></svg></div>
+            <div class="metric-val">4.2<sup>m</sup></div>
+            <div class="metric-lbl">Avg. Processing Time</div>
+            <div class="metric-trend up">↑ Was 3.5 hrs manual</div>
+          </div>
+          <div class="metric">
+            <div class="metric-ico r"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg></div>
+            <div class="metric-val">8</div>
+            <div class="metric-lbl">Risk Flags</div>
+            <div class="metric-trend dn">↓ Needs review</div>
+          </div>
+        </div>
+
+        <div class="section-head">Recent Loan Applications</div>
+        <table class="loan-tbl">
+          <thead>
+            <tr><th>Applicant</th><th>Type</th><th>Amount</th><th>Credit</th><th>Risk</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr onclick="goToApplicant(0)">
+              <td><div class="td-primary">Arjun Mehta</div><div class="td-secondary">HOME LOAN</div></td>
+              <td>Mortgage</td><td class="td-mono">₹42L</td><td class="td-mono">762</td>
+              <td><div class="risk-bar-wrap"><div class="risk-bar"><div class="risk-fill fill-g" style="width:25%"></div></div><span class="risk-txt rt-g">Low</span></div></td>
+              <td><span class="badge badge-ok">Approved</span></td>
+            </tr>
+            <tr onclick="goToApplicant(1)">
+              <td><div class="td-primary">Priya Sharma</div><div class="td-secondary">BUSINESS</div></td>
+              <td>SME Loan</td><td class="td-mono">₹18L</td><td class="td-mono">689</td>
+              <td><div class="risk-bar-wrap"><div class="risk-bar"><div class="risk-fill fill-a" style="width:55%"></div></div><span class="risk-txt rt-a">Med</span></div></td>
+              <td><span class="badge badge-warn">In Review</span></td>
+            </tr>
+            <tr onclick="goToApplicant(2)">
+              <td><div class="td-primary">Ravi Kumar</div><div class="td-secondary">PERSONAL</div></td>
+              <td>Personal</td><td class="td-mono">₹5L</td><td class="td-mono">598</td>
+              <td><div class="risk-bar-wrap"><div class="risk-bar"><div class="risk-fill fill-r" style="width:82%"></div></div><span class="risk-txt rt-r">High</span></div></td>
+              <td><span class="badge badge-bad">Rejected</span></td>
+            </tr>
+            <tr onclick="goToApplicant(3)">
+              <td><div class="td-primary">Sunita Rao</div><div class="td-secondary">VEHICLE</div></td>
+              <td>Auto Loan</td><td class="td-mono">₹8.5L</td><td class="td-mono">731</td>
+              <td><div class="risk-bar-wrap"><div class="risk-bar"><div class="risk-fill fill-g" style="width:30%"></div></div><span class="risk-txt rt-g">Low</span></div></td>
+              <td><span class="badge badge-ok">Approved</span></td>
+            </tr>
+            <tr onclick="goToApplicant(4)">
+              <td><div class="td-primary">Vikram Nair</div><div class="td-secondary">HOME LOAN</div></td>
+              <td>Mortgage</td><td class="td-mono">₹65L</td><td class="td-mono">648</td>
+              <td><div class="risk-bar-wrap"><div class="risk-bar"><div class="risk-fill fill-a" style="width:50%"></div></div><span class="risk-txt rt-a">Med</span></div></td>
+              <td><span class="badge badge-pend">Pending</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="dash-bottom">
+          <div class="info-card">
+            <div class="info-card-hd">
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></svg>
+              AI Processing Pipeline
+            </div>
+            <div class="pipeline-row"><div class="pipeline-dot"></div>PDF / OCR Extraction — Active</div>
+            <div class="pipeline-row"><div class="pipeline-dot"></div>NLP Chunking & Embedding — Active</div>
+            <div class="pipeline-row"><div class="pipeline-dot"></div>BM25 + Dense Vector Retrieval — Active</div>
+            <div class="pipeline-row"><div class="pipeline-dot"></div>Agentic RAG Reasoning Loop — Active</div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-hd">
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+              KYC & Compliance
+            </div>
+            <div class="kyc-row"><span>PAN Verified</span><span class="kyc-val" style="color:var(--green)">38 / 47</span></div>
+            <div class="kyc-row"><span>Aadhaar Linked</span><span class="kyc-val" style="color:var(--green)">41 / 47</span></div>
+            <div class="kyc-row"><span>Income Verified</span><span class="kyc-val" style="color:var(--amber)">29 / 47</span></div>
+            <div class="kyc-row"><span>Fraud Flags Active</span><span class="kyc-val" style="color:var(--red)">3</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── AI CHAT PANEL ── -->
+    <div class="panel" id="panel-chat">
+      <div class="chat-layout">
+        <div class="chat-applicants">
+          <div class="ca-head">Applicants</div>
+          <div class="ca-list" id="ca-list">
+            <div class="appl-card sel" onclick="setApplicant(0,this)">
+              <div class="ac-name">Arjun Mehta</div>
+              <div class="ac-loan">MORTGAGE · ₹42L</div>
+              <div class="ac-score score-ok">762</div>
+            </div>
+            <div class="appl-card" onclick="setApplicant(1,this)">
+              <div class="ac-name">Priya Sharma</div>
+              <div class="ac-loan">SME · ₹18L</div>
+              <div class="ac-score score-warn">689</div>
+            </div>
+            <div class="appl-card" onclick="setApplicant(2,this)">
+              <div class="ac-name">Ravi Kumar</div>
+              <div class="ac-loan">PERSONAL · ₹5L</div>
+              <div class="ac-score score-bad">598</div>
+            </div>
+            <div class="appl-card" onclick="setApplicant(3,this)">
+              <div class="ac-name">Sunita Rao</div>
+              <div class="ac-loan">AUTO · ₹8.5L</div>
+              <div class="ac-score score-ok">731</div>
+            </div>
+            <div class="appl-card" onclick="setApplicant(4,this)">
+              <div class="ac-name">Vikram Nair</div>
+              <div class="ac-loan">MORTGAGE · ₹65L</div>
+              <div class="ac-score score-warn">648</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-main">
+          <div class="ctx-strip">
+            <div class="ctx-chip">Applicant <span id="ctx-name">Arjun Mehta</span></div>
+            <div class="ctx-chip">Loan <span id="ctx-loan">Mortgage ₹42L</span></div>
+            <div class="ctx-chip">Credit <span id="ctx-score">762</span></div>
+            <div class="ctx-chip">DTI <span id="ctx-dti">32%</span></div>
+            <div class="ctx-chip">Risk <span id="ctx-risk" style="color:var(--green)">Low</span></div>
+          </div>
+          <div class="chat-msgs" id="chat-msgs">
+            <div class="msg ai">
+              <div class="msg-av ai">AI</div>
+              <div class="msg-bub"><strong>AI Loan Assistant ready.</strong> Arjun Mehta's profile has been processed. Credit 762 · DTI 32% · Income ₹1.2L/mo verified. No fraud flags detected. Ask me anything about this application.</div>
+            </div>
+          </div>
+          <div class="typing-ind" id="chat-typing">
+            <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+          </div>
+          <div class="quick-row">
+            <button class="qbtn" onclick="sendQuick('Summarize this applicant\'s financial profile.')">Summarize profile</button>
+            <button class="qbtn" onclick="sendQuick('What is the overall risk assessment for this loan?')">Risk assessment</button>
+            <button class="qbtn" onclick="sendQuick('Are there any missing documents or red flags?')">Check documents</button>
+            <button class="qbtn" onclick="sendQuick('Should this loan be approved? Give your recommendation.')">Approval rec.</button>
+            <button class="qbtn" onclick="sendQuick('What is the maximum loan amount this applicant qualifies for?')">Max eligibility</button>
+          </div>
+          <div class="chat-input-area">
+            <textarea class="chat-textarea" id="chat-input" placeholder="Ask about this applicant's financials, risk, documents…" onkeydown="handleChatKey(event)" rows="1"></textarea>
+            <button class="send-btn" onclick="sendChatMessage()">
+              <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── DOCUMENTS PANEL ── -->
+    <div class="panel" id="panel-docs">
+      <div class="docs-layout">
+        <!-- LEFT: doc list + upload -->
+        <div class="doc-sidebar">
+          <div class="ds-head">
+            <span class="ds-head-title">Documents</span>
+            <button class="upload-btn" onclick="document.getElementById('file-input').click()">
+              <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z" clip-rule="evenodd"/></svg>
+              Upload
+            </button>
+          </div>
+          <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
+            <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/></svg>
+            <p><strong>Drop files here</strong><br>PDF, image, or text</p>
+          </div>
+          <div class="upload-progress" id="upload-progress">
+            <div class="up-bar"><div class="up-fill" id="up-fill" style="width:0%"></div></div>
+            <div class="up-lbl" id="up-lbl">Uploading…</div>
+          </div>
+          <div class="doc-list" id="doc-list">
+            <!-- pre-loaded docs rendered by JS -->
+          </div>
+          <input type="file" id="file-input" multiple accept=".pdf,.png,.jpg,.jpeg,.txt,.csv">
+        </div>
+
+        <!-- RIGHT: detail + Q&A -->
+        <div class="doc-main">
+          <div class="doc-detail-area" id="doc-detail-area">
+            <div class="empty-state">
+              <svg viewBox="0 0 20 20" fill="currentColor" style="color:var(--gray-700)"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg>
+              <p>Select a document from the list<br>or upload a new one to analyse it.</p>
+            </div>
+          </div>
+          <div class="doc-qa-strip" id="doc-qa-strip" style="display:none">
+            <div class="doc-quick-row">
+              <button class="dqpill" onclick="docQuick('What are the key figures in this document?')">Key figures</button>
+              <button class="dqpill" onclick="docQuick('Are there any risks or red flags?')">Red flags</button>
+              <button class="dqpill" onclick="docQuick('Summarise this document in 3 bullet points.')">Summarise</button>
+              <button class="dqpill" onclick="docQuick('Is the applicant eligible based on this document?')">Eligibility check</button>
+            </div>
+            <div class="doc-qa-msgs" id="doc-qa-msgs"></div>
+            <div class="doc-qa-typing" id="doc-qa-typing">
+              <div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>
+            </div>
+            <div class="doc-qa-input-row">
+              <input class="doc-qa-input" id="doc-qa-input" placeholder="Ask a question about this document…" onkeydown="handleDocKey(event)">
+              <button class="doc-qa-send" onclick="sendDocQuestion()">
+                <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── APPROVAL PANEL ── -->
+    <div class="panel" id="panel-approval">
+      <div class="approval-body" id="approval-body"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ───────────── DATA ───────────── */
+const applicants = [
+  {name:'Arjun Mehta',loan:'Mortgage ₹42L',score:762,dti:'32%',risk:'Low',riskColor:'var(--green)',income:'₹1.2L/mo',employment:'Salaried · 8 yrs',fraud:'None',initials:'AM'},
+  {name:'Priya Sharma',loan:'SME Loan ₹18L',score:689,dti:'44%',risk:'Medium',riskColor:'var(--amber)',income:'₹78K/mo',employment:'Self-Employed · 4 yrs',fraud:'1 flag',initials:'PS'},
+  {name:'Ravi Kumar',loan:'Personal ₹5L',score:598,dti:'61%',risk:'High',riskColor:'var(--red)',income:'₹32K/mo',employment:'Contract · 1.5 yrs',fraud:'2 flags',initials:'RK'},
+  {name:'Sunita Rao',loan:'Auto ₹8.5L',score:731,dti:'28%',risk:'Low',riskColor:'var(--green)',income:'₹95K/mo',employment:'Salaried · 6 yrs',fraud:'None',initials:'SR'},
+  {name:'Vikram Nair',loan:'Mortgage ₹65L',score:648,dti:'51%',risk:'Medium',riskColor:'var(--amber)',income:'₹1.4L/mo',employment:'Salaried · 3 yrs',fraud:'None',initials:'VN'},
+];
+let currentApplicant = 0;
+
+const preloadedDocs = [
+  {id:'d1',name:'Bank Statement',who:'ARJUN MEHTA',status:'ok',statusText:'Verified',isReal:false,
+   fields:[['Name','Arjun Mehta'],['Account No','XXXX-4821'],['Avg Balance','₹2.8L'],['Txn Count (6mo)','142'],['Salary Credits','₹1.2L/mo'],['EMI Debits','₹38,500/mo'],['Bounce Count','0'],['Closing Balance','₹3.1L']],
+   risks:[],warns:[],content:'Bank statement for Arjun Mehta. Account XXXX-4821. Average balance ₹2.8 lakhs. 142 transactions in 6 months. Regular salary credits of ₹1.2L per month. EMI debits ₹38,500/mo. Zero bounce count. Closing balance ₹3.1L. Clean financial history.'},
+  {id:'d2',name:'Income Proof',who:'ARJUN MEHTA',status:'ok',statusText:'Verified',isReal:false,
+   fields:[['Employer','Infosys Ltd'],['Designation','Sr. Engineer'],['Gross Salary','₹1.42L/mo'],['Net Salary','₹1.19L/mo'],['Experience','8 years'],['Form 16','Available'],['ITR Filed','3 years']],
+   risks:[],warns:['ITR 2022 not uploaded'],content:'Income proof for Arjun Mehta. Employer: Infosys Ltd. Designation: Senior Engineer. Gross salary ₹1.42 lakhs per month. Net salary ₹1.19L/mo. 8 years experience. Form 16 available. ITR filed for 3 years. Minor gap: ITR 2022 not uploaded.'},
+  {id:'d3',name:'Credit Report',who:'PRIYA SHARMA',status:'warn',statusText:'Review needed',isReal:false,
+   fields:[['CIBIL Score','689'],['Active Loans','3'],['Overdue Amount','₹12,500'],['Credit Utilization','72%'],['Inquiries (6mo)','4'],['Oldest Account','2016']],
+   risks:[],warns:['High credit utilization 72%','4 hard inquiries in 6 months','Overdue ₹12,500 on credit card'],content:'Credit report for Priya Sharma. CIBIL score 689. 3 active loans. Overdue amount ₹12,500. Credit utilization 72% — above 30% threshold. 4 hard inquiries in 6 months. Oldest account since 2016. Multiple risk signals detected.'},
+  {id:'d4',name:'KYC — PAN',who:'RAVI KUMAR',status:'bad',statusText:'Mismatch found',isReal:false,
+   fields:[['PAN Number','ABCPK1234X'],['Name on PAN','Ravikumar S'],['Name on Aadhaar','Ravi Kumar'],['DOB Match','Yes'],['Address Match','No']],
+   risks:['Name mismatch between PAN and Aadhaar','Address mismatch with bank records'],warns:[],content:'KYC PAN document for Ravi Kumar. PAN ABCPK1234X. Name on PAN: Ravikumar S. Name on Aadhaar: Ravi Kumar — name mismatch detected. DOB matches. Address does not match bank records. Possible fraud indicator flagged.'},
+  {id:'d5',name:'Property Docs',who:'VIKRAM NAIR',status:'warn',statusText:'Incomplete',isReal:false,
+   fields:[['Property Address','Koramangala, Bengaluru'],['Property Value','₹1.1 Cr'],['Legal Status','Under dispute'],['Title Deed','Not uploaded'],['NOC','Pending']],
+   risks:['Property title under legal dispute'],warns:['Title deed not uploaded','NOC from builder pending'],content:'Property documents for Vikram Nair. Property at Koramangala Bengaluru valued ₹1.1 crore. Legal status: under dispute — high risk. Title deed not yet uploaded. NOC from builder pending. Document set incomplete.'},
+];
+
+let docs = [...preloadedDocs];
+let selectedDoc = null;
+
+/* ───────────── NAVIGATION ───────────── */
+function showPanel(name, el) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(el) el.classList.add('active');
+  const titles={dashboard:'Overview Dashboard',chat:'AI Loan Assistant',docs:'Document Analysis',approval:'Approval Workflow'};
+  document.getElementById('page-title').textContent=titles[name];
+}
+
+function goToApplicant(idx) {
+  setApplicant(idx, document.querySelectorAll('#ca-list .appl-card')[idx]);
+  showPanel('chat', document.querySelectorAll('.nav-item')[1]);
+}
+
+/* ───────────── APPLICANT SWITCH ───────────── */
+function setApplicant(idx, card) {
+  currentApplicant = idx;
+  document.querySelectorAll('#ca-list .appl-card').forEach(c=>c.classList.remove('sel'));
+  if(card) card.classList.add('sel');
+  const a = applicants[idx];
+  document.getElementById('ctx-name').textContent = a.name;
+  document.getElementById('ctx-loan').textContent = a.loan;
+  document.getElementById('ctx-score').textContent = a.score;
+  document.getElementById('ctx-dti').textContent = a.dti;
+  const r=document.getElementById('ctx-risk');
+  r.textContent=a.risk; r.style.color=a.riskColor;
+  const msgs=document.getElementById('chat-msgs');
+  msgs.innerHTML=`<div class="msg ai"><div class="msg-av ai">AI</div><div class="msg-bub"><strong>Switched to ${a.name}.</strong> ${a.loan} · Credit score ${a.score} · DTI ${a.dti} · Risk: <span style="color:${a.riskColor}">${a.risk}</span><br>Income: ${a.income} · ${a.employment} · Fraud signals: ${a.fraud}<br>Ready for your questions.</div></div>`;
+}
+
+/* ───────────── CHAT SEND ───────────── */
+async function sendChatMessage() {
+  const inp=document.getElementById('chat-input');
+  const text=inp.value.trim(); if(!text) return;
+  inp.value='';
+  appendChatMsg('user',text);
+  document.getElementById('chat-typing').classList.add('on');
+  const a=applicants[currentApplicant];
+  const sys=`You are an expert AI banking loan officer assistant at LoanDesk, a professional bank in India.
+Current applicant:
+- Name: ${a.name}
+- Loan: ${a.loan}
+- Credit Score: ${a.score}
+- DTI Ratio: ${a.dti}
+- Risk Level: ${a.risk}
+- Monthly Income: ${a.income}
+- Employment: ${a.employment}
+- Fraud Flags: ${a.fraud}
+
+Provide professional, concise insights in 2–4 sentences. Use ₹ for amounts. If listing items, use a short bullet list. Be direct and specific.`;
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,system:sys,messages:[{role:'user',content:text}]})});
+    const data=await resp.json();
+    const reply=data.content?.map(c=>c.text||'').join('')||'Unable to get a response.';
+    document.getElementById('chat-typing').classList.remove('on');
+    appendChatMsg('ai',reply);
+  }catch(e){
+    document.getElementById('chat-typing').classList.remove('on');
+    appendChatMsg('ai','Connection error. Please try again.');
+  }
+}
+
+function sendQuick(text){document.getElementById('chat-input').value=text;sendChatMessage();}
+
+function appendChatMsg(role,text){
+  const msgs=document.getElementById('chat-msgs');
+  const div=document.createElement('div');
+  div.className='msg '+role;
+  const fmt=text.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/^[-•] (.+)/gm,'<li>$1</li>').replace(/(<li>.*<\/li>)/s,'<ul>$1</ul>');
+  div.innerHTML=`<div class="msg-av ${role}">${role==='ai'?'AI':'You'}</div><div class="msg-bub">${fmt}</div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+function handleChatKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendChatMessage();}}
+
+/* ───────────── DOC PANEL ───────────── */
+function renderDocList(){
+  const list=document.getElementById('doc-list');
+  list.innerHTML='';
+  docs.forEach((d,i)=>{
+    const dotClass=d.status==='ok'?'ds-ok':d.status==='warn'?'ds-warn':d.status==='bad'?'ds-bad':'ds-blue';
+    const div=document.createElement('div');
+    div.className='doc-item'+(selectedDoc&&selectedDoc.id===d.id?' sel':'');
+    div.onclick=()=>selectDoc(d);
+    div.innerHTML=`
+      <div class="di-icon"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"/></svg></div>
+      <div>
+        <div class="di-name">${d.name}</div>
+        <div class="di-who">${d.who}</div>
+        <div class="di-status"><span class="ds-dot ${dotClass}"></span>${d.statusText}</div>
+      </div>`;
+    list.appendChild(div);
+  });
+  document.getElementById('doc-count-badge').textContent=docs.length;
+}
+
+function selectDoc(d){
+  selectedDoc=d;
+  renderDocList();
+
+  const area=document.getElementById('doc-detail-area');
+  const badgeCls=d.status==='ok'?'badge-ok':d.status==='warn'?'badge-warn':d.status==='bad'?'badge-bad':'badge-pend';
+
+  let html=`<div class="doc-title-row"><div class="doc-title">${d.name}</div><span class="badge ${badgeCls}">${d.statusText}</span></div>`;
+
+  if(d.isReal){
+    html+=`<div class="alert-row alert-ok"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>Document uploaded and indexed. AI ready to answer questions below.</div>`;
+  }
+
+  d.risks.forEach(r=>{html+=`<div class="alert-row alert-risk"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>${r}</div>`;});
+  d.warns.forEach(w=>{html+=`<div class="alert-row alert-warn"><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>${w}</div>`;});
+
+  if(d.fields&&d.fields.length){
+    html+=`<div class="extract-box"><div class="extract-head"><svg viewBox="0 0 20 20" fill="currentColor"><path d="M9 9a2 2 0 114 0 2 2 0 01-4 0z"/><path fill-rule="evenodd" d="M10 3a7 7 0 100 14A7 7 0 0010 3zm-7 7a7 7 0 1114 0A7 7 0 013 10z" clip-rule="evenodd"/></svg>Extracted Fields — OCR + NLP</div><div class="extract-grid">`;
+    d.fields.forEach(([k,v])=>{html+=`<div class="extract-cell"><div class="ex-k">${k}</div><div class="ex-v">${v}</div></div>`;});
+    html+=`</div></div>`;
+  }
+
+  area.innerHTML=html;
+
+  // show Q&A strip and clear old messages
+  document.getElementById('doc-qa-strip').style.display='block';
+  document.getElementById('doc-qa-msgs').innerHTML='';
+}
+
+/* ───────────── DOC Q&A ───────────── */
+async function sendDocQuestion(){
+  const inp=document.getElementById('doc-qa-input');
+  const q=inp.value.trim(); if(!q||!selectedDoc) return;
+  inp.value='';
+  appendDocMsg('user',q);
+  document.getElementById('doc-qa-typing').classList.add('on');
+
+  const sys=`You are an AI document analyst for a bank loan processing system.
+You have been given the following document to analyse:
+
+Document: "${selectedDoc.name}"
+Person: ${selectedDoc.who}
+Status: ${selectedDoc.statusText}
+${selectedDoc.isReal?'Content (uploaded by user):':'Summary content:'}
+${selectedDoc.content}
+
+Answer questions about this document accurately and concisely. Use ₹ for Indian rupee amounts. Keep responses to 2–4 sentences unless a list is clearly needed. Be professional and precise.`;
+
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,system:sys,messages:[{role:'user',content:q}]})});
+    const data=await resp.json();
+    const reply=data.content?.map(c=>c.text||'').join('')||'Unable to get a response.';
+    document.getElementById('doc-qa-typing').classList.remove('on');
+    appendDocMsg('ai',reply);
+  }catch(e){
+    document.getElementById('doc-qa-typing').classList.remove('on');
+    appendDocMsg('ai','Connection error. Please try again.');
+  }
+}
+
+function docQuick(q){document.getElementById('doc-qa-input').value=q;sendDocQuestion();}
+
+function appendDocMsg(role,text){
+  const msgs=document.getElementById('doc-qa-msgs');
+  const div=document.createElement('div');
+  div.className='dq-msg '+role;
+  const fmt=text.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+  div.innerHTML=`<div class="dq-label">${role==='ai'?'AI Analyst':'You'}</div><div class="dq-text">${fmt}</div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+function handleDocKey(e){if(e.key==='Enter') sendDocQuestion();}
+
+/* ───────────── FILE UPLOAD ───────────── */
+const fileInput=document.getElementById('file-input');
+const uploadZone=document.getElementById('upload-zone');
+
+fileInput.addEventListener('change',e=>handleFiles(e.target.files));
+
+uploadZone.addEventListener('dragover',e=>{e.preventDefault();uploadZone.classList.add('drag');});
+uploadZone.addEventListener('dragleave',()=>uploadZone.classList.remove('drag'));
+uploadZone.addEventListener('drop',e=>{e.preventDefault();uploadZone.classList.remove('drag');handleFiles(e.dataTransfer.files);});
+
+function handleFiles(files){
+  [...files].forEach(file=>processFile(file));
+}
+
+function processFile(file){
+  const progress=document.getElementById('upload-progress');
+  const fill=document.getElementById('up-fill');
+  const lbl=document.getElementById('up-lbl');
+  progress.style.display='block';
+  lbl.textContent=`Reading ${file.name}…`;
+  let pct=0;
+  const interval=setInterval(()=>{pct=Math.min(pct+20,90);fill.style.width=pct+'%';},120);
+
+  const reader=new FileReader();
+
+  reader.onload=e=>{
+    clearInterval(interval);
+    fill.style.width='100%';
+    lbl.textContent='Indexing…';
+
+    let content='';
+    if(file.type.startsWith('image/')){
+      // store base64 for image files
+      content=`[Image file: ${file.name}. File size: ${(file.size/1024).toFixed(1)}KB. Type: ${file.type}. Content extracted via OCR simulation.]`;
+    } else {
+      content=e.target.result||'';
+      if(content.length>8000) content=content.slice(0,8000)+'… [truncated]';
+    }
+
+    const ext=file.name.split('.').pop().toUpperCase();
+    const newDoc={
+      id:'upload_'+Date.now(),
+      name:file.name.replace(/\.[^/.]+$/,''),
+      who:'UPLOADED DOCUMENT',
+      status:'blue',statusText:'Uploaded',
+      isReal:true,
+      fields:[['File Name',file.name],['File Type',ext],['Size',`${(file.size/1024).toFixed(1)} KB`],['Uploaded',new Date().toLocaleDateString('en-IN')]],
+      risks:[],warns:[],
+      content:content,
+    };
+    docs.unshift(newDoc);
+    renderDocList();
+    setTimeout(()=>{
+      progress.style.display='none';
+      fill.style.width='0%';
+      selectDoc(newDoc);
+    },400);
+    fileInput.value='';
+  };
+
+  reader.onerror=()=>{clearInterval(interval);progress.style.display='none';};
+
+  if(file.type.startsWith('image/')){
+    reader.readAsDataURL(file);
+  } else {
+    reader.readAsText(file);
+  }
+}
+
+/* ───────────── APPROVALS ───────────── */
+const approvalData=[
+  {name:'Arjun Mehta',loan:'Mortgage ₹42L',score:762,criteria:[['DTI Ratio','32% ✓','ok'],['Credit Score','762 ✓','ok'],['Income','₹1.2L/mo ✓','ok'],['Fraud Check','Clear ✓','ok']],rec:'APPROVE',recColor:'var(--green)',summary:'Strong profile. Low DTI, high credit score, verified 8-year employment at Infosys. Zero fraud signals. Recommend approval at standard rate.'},
+  {name:'Priya Sharma',loan:'SME Loan ₹18L',score:689,criteria:[['DTI Ratio','44% ⚠','warn'],['Credit Score','689 ⚠','warn'],['Income','₹78K/mo ✓','ok'],['Fraud Check','1 flag ⚠','warn']],rec:'REVIEW',recColor:'var(--amber)',summary:'Moderate risk. High credit utilization (72%) and one fraud flag require senior officer review before proceeding.'},
+  {name:'Ravi Kumar',loan:'Personal ₹5L',score:598,criteria:[['DTI Ratio','61% ✗','bad'],['Credit Score','598 ✗','bad'],['Income','₹32K/mo ✗','bad'],['Fraud Check','2 flags ✗','bad']],rec:'REJECT',recColor:'var(--red)',summary:'High risk across all criteria. Sub-600 credit score, DTI above 60%, contract employment, and 2 fraud flags. Recommend rejection.'},
+];
+
+function buildApprovals(){
+  const body=document.getElementById('approval-body');
+  body.innerHTML=approvalData.map((a,i)=>`
+    <div class="appr-card" id="ac-${i}">
+      <div class="decision-banner" id="banner-${i}"></div>
+      <div class="appr-head">
+        <div>
+          <div class="appr-name">${a.name}</div>
+          <div class="appr-meta">${a.loan} &nbsp;·&nbsp; CREDIT SCORE ${a.score}</div>
+        </div>
+        <div class="ai-rec-box">
+          <div class="ai-rec-val" style="color:${a.recColor}">${a.rec}</div>
+          <div class="ai-rec-lbl">AI Recommendation</div>
+        </div>
+      </div>
+      <div class="appr-summary">${a.summary}</div>
+      <div class="criteria-grid">
+        ${a.criteria.map(([n,v,s])=>`<div class="crit-item"><div class="crit-lbl">${n}</div><div class="crit-val cv-${s}">${v}</div></div>`).join('')}
+      </div>
+      <div class="action-row">
+        <button class="btn-approve" onclick="decide(${i},'approved')">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+          Approve
+        </button>
+        <button class="btn-review" onclick="decide(${i},'review')">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z" clip-rule="evenodd"/></svg>
+          Flag Review
+        </button>
+        <button class="btn-reject" onclick="decide(${i},'rejected')">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+          Reject
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function decide(i,verdict){
+  const b=document.getElementById('banner-'+i);
+  b.classList.add('show');
+  if(verdict==='approved'){b.className='decision-banner show db-approved';b.innerHTML='<svg style="width:14px;height:14px" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg> Decision recorded: APPROVED by Gayathri Devi';}
+  else if(verdict==='review'){b.className='decision-banner show db-flagged';b.innerHTML='<svg style="width:14px;height:14px" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 6a3 3 0 013-3h10a1 1 0 01.8 1.6L14.25 8l2.55 3.4A1 1 0 0116 13H6a1 1 0 00-1 1v3a1 1 0 11-2 0V6z" clip-rule="evenodd"/></svg> Flagged for senior officer review';}
+  else{b.className='decision-banner show db-rejected';b.innerHTML='<svg style="width:14px;height:14px" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/></svg> Decision recorded: REJECTED by Gayathri Devi';}
+}
+
+/* ───────────── INIT ───────────── */
+renderDocList();
+buildApprovals();
+</script>
+</body>
+</html>

@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LoanIQ — AI Banking Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+:root {
+  --bg-deep: #0a0d14;
+  --bg-base: #0f1420;
+  --bg-card: #141926;
+  --bg-elevated: #1a2133;
+  --bg-hover: #1f2840;
+  --border: rgba(255,255,255,0.07);
+  --border-mid: rgba(255,255,255,0.12);
+  --gold: #c9a84c;
+  --gold-light: #e2c47a;
+  --gold-dim: rgba(201,168,76,0.15);
+  --green: #22c99a;
+  --green-dim: rgba(34,201,154,0.12);
+  --amber: #f59e0b;
+  --amber-dim: rgba(245,158,11,0.12);
+  --red: #ef4444;
+  --red-dim: rgba(239,68,68,0.12);
+  --blue: #60a5fa;
+  --blue-dim: rgba(96,165,250,0.12);
+  --text-1: #f0f3fa;
+  --text-2: #8a93a8;
+  --text-3: #4e5a6e;
+  --font-head: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-deep);
+  color: var(--text-1);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── SHELL ── */
+.shell {
+  display: flex;
+  height: 720px;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  border: 1px solid var(--border-mid);
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--bg-base);
+  box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.04) inset;
+}
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 210px;
+  flex-shrink: 0;
+  background: var(--bg-deep);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+.logo-area {
+  padding: 22px 20px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.logo-mark {
+  width: 34px;
+  height: 34px;
+  background: linear-gradient(135deg, var(--gold) 0%, #e8a52a 100%);
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 14px rgba(201,168,76,0.35);
+}
+.logo-mark i { color: #0a0d14; font-size: 17px; }
+.logo-name {
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--text-1);
+}
+.logo-tag {
+  font-size: 10px;
+  color: var(--text-3);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 1px;
+  font-family: var(--font-mono);
+}
+
+.nav-section {
+  padding: 16px 12px 0;
+  flex: 1;
+}
+.nav-label {
+  font-size: 9px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.14em;
+  color: var(--text-3);
+  text-transform: uppercase;
+  padding: 0 8px;
+  margin-bottom: 6px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-2);
+  transition: all 0.15s ease;
+  margin-bottom: 2px;
+  position: relative;
+}
+.nav-item i { font-size: 16px; flex-shrink: 0; }
+.nav-item:hover { background: var(--bg-elevated); color: var(--text-1); }
+.nav-item.active {
+  background: var(--gold-dim);
+  color: var(--gold-light);
+  font-weight: 500;
+}
+.nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 20%; bottom: 20%;
+  width: 2px;
+  background: var(--gold);
+  border-radius: 2px;
+}
+
+.sidebar-footer {
+  padding: 16px 16px 20px;
+  border-top: 1px solid var(--border);
+}
+.user-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.avatar-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2a3f6e, #1a2a50);
+  border: 1px solid var(--border-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--blue);
+  flex-shrink: 0;
+}
+.user-name { font-size: 12px; font-weight: 500; color: var(--text-1); }
+.user-role { font-size: 10px; color: var(--text-3); font-family: var(--font-mono); margin-top: 1px; }
+
+/* ── MAIN ── */
+.main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+
+.topbar {
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  background: var(--bg-base);
+}
+.topbar-title {
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-1);
+  letter-spacing: -0.01em;
+}
+.topbar-sub { font-size: 11px; color: var(--text-3); font-family: var(--font-mono); margin-top: 2px; }
+
+.status-pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border-mid);
+  background: rgba(34,201,154,0.06);
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--green);
+}
+.pulse {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--green);
+  position: relative;
+  flex-shrink: 0;
+}
+.pulse::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: var(--green);
+  opacity: 0.3;
+  animation: ping 1.5s ease-out infinite;
+}
+@keyframes ping { 0%{transform:scale(1);opacity:0.3} 100%{transform:scale(2.2);opacity:0} }
+
+/* ── PANEL ── */
+.panel { display: none; flex: 1; overflow: hidden; }
+.panel.active { display: flex; flex-direction: column; }
+
+/* ── DASHBOARD ── */
+.dash-scroll { flex: 1; overflow-y: auto; padding: 20px 24px; }
+.dash-scroll::-webkit-scrollbar { width: 4px; }
+.dash-scroll::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 2px; }
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.metric-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s;
+}
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+}
+.metric-card:hover { border-color: var(--border-mid); }
+
+.metric-icon {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+.metric-icon.blue { background: var(--blue-dim); color: var(--blue); }
+.metric-icon.green { background: var(--green-dim); color: var(--green); }
+.metric-icon.gold { background: var(--gold-dim); color: var(--gold); }
+.metric-icon.red { background: var(--red-dim); color: var(--red); }
+
+.metric-val {
+  font-family: var(--font-head);
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text-1);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.metric-val span { font-size: 14px; font-weight: 500; color: var(--text-2); }
+.metric-lbl { font-size: 11px; color: var(--text-2); margin-top: 6px; }
+.metric-trend {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  margin-top: 4px;
+}
+.metric-trend.up { color: var(--green); }
+.metric-trend.down { color: var(--red); }
+
+.section-hd {
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-1);
+  letter-spacing: 0.01em;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-hd::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Table */
+.loan-table { width: 100%; border-collapse: collapse; }
+.loan-table th {
+  text-align: left;
+  padding: 8px 12px;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--text-3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+}
+.loan-table td {
+  padding: 10px 12px;
+  font-size: 13px;
+  color: var(--text-1);
+  border-bottom: 1px solid var(--border);
+}
+.loan-table tbody tr { cursor: pointer; transition: background 0.12s; }
+.loan-table tbody tr:hover td { background: var(--bg-elevated); }
+.loan-table tbody tr:last-child td { border-bottom: none; }
+.td-name { font-weight: 500; }
+.td-sub { font-size: 10px; color: var(--text-3); font-family: var(--font-mono); margin-top: 2px; }
+.score-mono { font-family: var(--font-mono); font-size: 13px; }
+
+.badge {
+  display: inline-flex; align-items: center;
+  padding: 3px 9px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+.badge-approved { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34,201,154,0.25); }
+.badge-review { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(245,158,11,0.25); }
+.badge-rejected { background: var(--red-dim); color: var(--red); border: 1px solid rgba(239,68,68,0.25); }
+.badge-pending { background: var(--blue-dim); color: var(--blue); border: 1px solid rgba(96,165,250,0.25); }
+
+.risk-track { display: flex; align-items: center; gap: 8px; }
+.risk-bar { flex: 1; height: 3px; background: var(--bg-elevated); border-radius: 2px; overflow: hidden; }
+.risk-fill { height: 100%; border-radius: 2px; }
+.risk-low { background: var(--green); }
+.risk-med { background: var(--amber); }
+.risk-high { background: var(--red); }
+.risk-lbl { font-size: 10px; font-family: var(--font-mono); min-width: 24px; }
+.risk-lbl.low { color: var(--green); }
+.risk-lbl.med { color: var(--amber); }
+.risk-lbl.high { color: var(--red); }
+
+.dash-bottom { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+.info-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 14px 16px;
+}
+.info-card-hd {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--text-3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.pipeline-item {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; color: var(--text-2);
+  margin-bottom: 6px;
+}
+.pipeline-item:last-child { margin-bottom: 0; }
+.pipeline-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+.kyc-row {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; color: var(--text-2); margin-bottom: 6px;
+}
+.kyc-row:last-child { margin-bottom: 0; }
+.kyc-val { font-family: var(--font-mono); font-size: 12px; font-weight: 500; }
+
+/* ── CHAT PANEL ── */
+.chat-layout { flex: 1; display: flex; overflow: hidden; }
+
+.chat-sidebar {
+  width: 186px;
+  flex-shrink: 0;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.chat-sidebar-hd {
+  padding: 12px 14px;
+  font-size: 9px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  border-bottom: 1px solid var(--border);
+}
+.chat-sidebar-list { flex: 1; overflow-y: auto; padding: 8px; }
+.chat-sidebar-list::-webkit-scrollbar { width: 3px; }
+.chat-sidebar-list::-webkit-scrollbar-thumb { background: var(--border); }
+
+.appl-card {
+  padding: 10px 10px;
+  border-radius: var(--r-md);
+  border: 1px solid transparent;
+  margin-bottom: 4px;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.appl-card:hover { background: var(--bg-elevated); border-color: var(--border); }
+.appl-card.selected { background: var(--gold-dim); border-color: rgba(201,168,76,0.3); }
+.appl-card-name { font-size: 12px; font-weight: 500; color: var(--text-1); }
+.appl-card-loan { font-size: 10px; color: var(--text-2); margin-top: 1px; font-family: var(--font-mono); }
+.appl-card-score { font-size: 11px; font-family: var(--font-mono); font-weight: 500; margin-top: 3px; }
+.score-green { color: var(--green); }
+.score-amber { color: var(--amber); }
+.score-red { color: var(--red); }
+
+.chat-main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
+
+.ctx-bar {
+  padding: 10px 16px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+.ctx-item { font-size: 11px; font-family: var(--font-mono); }
+.ctx-key { color: var(--text-3); }
+.ctx-val { color: var(--text-1); font-weight: 500; }
+
+.chat-msgs {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.chat-msgs::-webkit-scrollbar { width: 3px; }
+.chat-msgs::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 2px; }
+
+.msg { display: flex; gap: 10px; max-width: 90%; }
+.msg.user { align-self: flex-end; flex-direction: row-reverse; }
+
+.msg-av {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.msg-av.ai { background: var(--green-dim); color: var(--green); border: 1px solid rgba(34,201,154,0.25); }
+.msg-av.user { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(201,168,76,0.25); }
+
+.msg-bub {
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 13px;
+  line-height: 1.6;
+  font-weight: 300;
+}
+.msg.ai .msg-bub {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-1);
+  border-radius: 2px 12px 12px 12px;
+}
+.msg.user .msg-bub {
+  background: linear-gradient(135deg, var(--gold) 0%, #b5882c 100%);
+  color: #0a0d14;
+  font-weight: 500;
+  border-radius: 12px 2px 12px 12px;
+}
+.msg-bub strong { font-weight: 600; }
+
+.typing-ind {
+  display: none;
+  align-self: flex-start;
+  padding: 10px 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 2px 12px 12px 12px;
+  gap: 5px;
+  margin-bottom: 2px;
+}
+.typing-ind.on { display: flex; }
+.dot { width: 5px; height: 5px; border-radius: 50%; background: var(--text-3); animation: bob 1.2s infinite; }
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes bob { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-4px)} }
+
+.quick-pills { padding: 8px 14px; display: flex; gap: 6px; flex-wrap: wrap; flex-shrink: 0; }
+.qpill {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  padding: 5px 12px;
+  border-radius: 20px;
+  border: 1px solid var(--border-mid);
+  background: var(--bg-card);
+  color: var(--text-2);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.12s;
+}
+.qpill:hover { background: var(--gold-dim); border-color: rgba(201,168,76,0.35); color: var(--gold-light); }
+
+.chat-input-row {
+  padding: 10px 14px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+  background: var(--bg-base);
+}
+.chat-input {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border-mid);
+  border-radius: var(--r-md);
+  padding: 9px 14px;
+  font-size: 13px;
+  font-family: var(--font-body);
+  color: var(--text-1);
+  resize: none;
+  height: 40px;
+  transition: border-color 0.15s;
+}
+.chat-input::placeholder { color: var(--text-3); }
+.chat-input:focus { outline: none; border-color: var(--gold); }
+.send-btn {
+  width: 40px; height: 40px;
+  border-radius: var(--r-md);
+  background: linear-gradient(135deg, var(--gold) 0%, #b5882c 100%);
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(201,168,76,0.3);
+  transition: opacity 0.15s;
+}
+.send-btn:hover { opacity: 0.88; }
+.send-btn i { color: #0a0d14; font-size: 16px; }
+
+/* ── DOCS PANEL ── */
+.doc-layout { flex: 1; display: flex; overflow: hidden; }
+
+.doc-list { width: 190px; flex-shrink: 0; border-right: 1px solid var(--border); overflow-y: auto; padding: 12px 10px; }
+.doc-list-hd { font-size: 9px; font-family: var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-3); padding: 0 6px; margin-bottom: 8px; }
+
+.doc-item {
+  padding: 9px 10px;
+  border-radius: var(--r-md);
+  border: 1px solid transparent;
+  margin-bottom: 4px;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+.doc-item:hover { background: var(--bg-elevated); border-color: var(--border); }
+.doc-item.selected { background: var(--gold-dim); border-color: rgba(201,168,76,0.3); }
+.doc-type { font-size: 12px; font-weight: 500; color: var(--text-1); }
+.doc-who { font-size: 10px; color: var(--text-2); font-family: var(--font-mono); margin-top: 1px; }
+.doc-st { display: flex; align-items: center; gap: 5px; margin-top: 4px; }
+.doc-dot { width: 5px; height: 5px; border-radius: 50%; }
+.doc-dot.ok { background: var(--green); }
+.doc-dot.warn { background: var(--amber); }
+.doc-dot.err { background: var(--red); }
+.doc-st-lbl { font-size: 10px; font-family: var(--font-mono); color: var(--text-3); }
+
+.doc-detail { flex: 1; overflow-y: auto; padding: 20px; }
+.doc-detail::-webkit-scrollbar { width: 3px; }
+.doc-detail::-webkit-scrollbar-thumb { background: var(--border-mid); }
+
+.doc-dtl-title {
+  font-family: var(--font-head);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-1);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alert-bar {
+  padding: 9px 14px;
+  border-radius: var(--r-md);
+  font-size: 12px;
+  font-family: var(--font-mono);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.alert-bar i { font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+.alert-bar.risk { background: var(--red-dim); border: 1px solid rgba(239,68,68,0.2); color: #fca5a5; }
+.alert-bar.warn { background: var(--amber-dim); border: 1px solid rgba(245,158,11,0.2); color: #fcd34d; }
+
+.extract-box {
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  margin-top: 14px;
+}
+.extract-box-hd {
+  padding: 10px 14px;
+  background: var(--bg-elevated);
+  font-size: 10px;
+  font-family: var(--font-mono);
+  color: var(--text-3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.extract-grid { display: grid; grid-template-columns: 1fr 1fr; padding: 12px 14px; gap: 8px 16px; }
+.ex-key { font-size: 10px; color: var(--text-3); font-family: var(--font-mono); }
+.ex-val { font-size: 13px; font-weight: 500; color: var(--text-1); margin-top: 1px; }
+
+/* ── APPROVAL PANEL ── */
+.approval-scroll { flex: 1; overflow-y: auto; padding: 20px 24px; }
+.approval-scroll::-webkit-scrollbar { width: 4px; }
+.approval-scroll::-webkit-scrollbar-thumb { background: var(--border-mid); }
+
+.appr-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 16px 18px;
+  margin-bottom: 14px;
+  transition: border-color 0.2s;
+}
+.appr-card:hover { border-color: var(--border-mid); }
+
+.appr-hd { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+.appr-name { font-family: var(--font-head); font-size: 15px; font-weight: 700; color: var(--text-1); }
+.appr-meta { font-size: 11px; color: var(--text-2); font-family: var(--font-mono); margin-top: 3px; }
+.ai-rec {
+  text-align: right;
+}
+.ai-rec-val { font-family: var(--font-head); font-size: 16px; font-weight: 800; }
+.ai-rec-lbl { font-size: 9px; color: var(--text-3); font-family: var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 2px; }
+.appr-summary { font-size: 12px; color: var(--text-2); margin-bottom: 14px; line-height: 1.6; }
+
+.criteria-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
+.crit-item {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 9px 12px;
+}
+.crit-lbl { font-size: 10px; color: var(--text-3); font-family: var(--font-mono); }
+.crit-val { font-size: 13px; font-weight: 600; margin-top: 2px; font-family: var(--font-mono); }
+.crit-pass { color: var(--green); }
+.crit-warn { color: var(--amber); }
+.crit-fail { color: var(--red); }
+
+.action-row { display: flex; gap: 8px; }
+.btn-appr {
+  flex: 1; padding: 9px;
+  border: none;
+  border-radius: var(--r-md);
+  background: var(--green-dim);
+  border: 1px solid rgba(34,201,154,0.25);
+  color: var(--green);
+  font-size: 12px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  transition: all 0.15s;
+}
+.btn-appr:hover { background: rgba(34,201,154,0.2); }
+.btn-rev {
+  flex: 1; padding: 9px;
+  border-radius: var(--r-md);
+  border: 1px solid var(--border-mid);
+  background: transparent;
+  color: var(--text-2);
+  font-size: 12px;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  transition: all 0.15s;
+}
+.btn-rev:hover { background: var(--bg-elevated); color: var(--text-1); }
+.btn-rej {
+  flex: 1; padding: 9px;
+  border-radius: var(--r-md);
+  border: 1px solid rgba(239,68,68,0.25);
+  background: var(--red-dim);
+  color: var(--red);
+  font-size: 12px;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 5px;
+  transition: all 0.15s;
+}
+.btn-rej:hover { background: rgba(239,68,68,0.2); }
+
+.decision-banner {
+  padding: 9px 14px;
+  border-radius: var(--r-md);
+  font-size: 12px;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  margin-bottom: 12px;
+  display: none;
+  align-items: center;
+  gap: 7px;
+}
+.decision-banner.approved { display: flex; background: var(--green-dim); border: 1px solid rgba(34,201,154,0.25); color: var(--green); }
+.decision-banner.rejected { display: flex; background: var(--red-dim); border: 1px solid rgba(239,68,68,0.25); color: var(--red); }
+.decision-banner.flagged { display: flex; background: var(--amber-dim); border: 1px solid rgba(245,158,11,0.25); color: var(--amber); }
+</style>
+
+<div class="shell">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="logo-area">
+      <div class="logo-mark"><i class="ti ti-building-bank"></i></div>
+      <div class="logo-name">LoanIQ</div>
+      <div class="logo-tag">AI Banking Platform</div>
+    </div>
+    <div class="nav-section">
+      <div class="nav-label" style="margin-bottom:8px">Main</div>
+      <div class="nav-item active" onclick="switchPanel('dashboard',this)"><i class="ti ti-layout-dashboard"></i>Dashboard</div>
+      <div class="nav-item" onclick="switchPanel('chat',this)"><i class="ti ti-message-dots"></i>AI Assistant</div>
+      <div class="nav-item" onclick="switchPanel('docs',this)"><i class="ti ti-files"></i>Documents</div>
+      <div class="nav-item" onclick="switchPanel('approval',this)"><i class="ti ti-checklist"></i>Approvals</div>
+    </div>
+    <div class="sidebar-footer">
+      <div class="user-card">
+        <div class="avatar-circle">GD</div>
+        <div>
+          <div class="user-name">Gayathri Devi</div>
+          <div class="user-role">Loan Officer</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <div>
+        <div class="topbar-title" id="topbar-title">Overview Dashboard</div>
+        <div class="topbar-sub" id="topbar-sub">MAY 27, 2026 &nbsp;·&nbsp; 47 APPLICATIONS TODAY</div>
+      </div>
+      <div class="status-pill">
+        <span class="pulse"></span>AI ENGINE ONLINE
+      </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="panel active" id="panel-dashboard">
+      <div class="dash-scroll">
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-icon blue"><i class="ti ti-files"></i></div>
+            <div class="metric-val">47</div>
+            <div class="metric-lbl">Applications Today</div>
+            <div class="metric-trend up">↑ +12% vs yesterday</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon green"><i class="ti ti-check"></i></div>
+            <div class="metric-val">31</div>
+            <div class="metric-lbl">AI Approved</div>
+            <div class="metric-trend up">↑ 66% approval rate</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon gold"><i class="ti ti-clock"></i></div>
+            <div class="metric-val">4.2<span>m</span></div>
+            <div class="metric-lbl">Avg. Processing</div>
+            <div class="metric-trend up">↑ Was 3.5 hrs manual</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon red"><i class="ti ti-alert-triangle"></i></div>
+            <div class="metric-val">8</div>
+            <div class="metric-lbl">Risk Flags</div>
+            <div class="metric-trend down">↓ Needs review</div>
+          </div>
+        </div>
+
+        <div class="section-hd">Recent Loan Applications</div>
+        <table class="loan-table">
+          <thead>
+            <tr>
+              <th>Applicant</th><th>Type</th><th>Amount</th><th>Credit</th><th>Risk</th><th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr onclick="setApplicant(0);switchPanel('chat',document.querySelectorAll('.nav-item')[1])">
+              <td><div class="td-name">Arjun Mehta</div><div class="td-sub">HOME LOAN</div></td>
+              <td>Mortgage</td><td class="score-mono">₹42L</td><td class="score-mono">762</td>
+              <td><div class="risk-track"><div class="risk-bar"><div class="risk-fill risk-low" style="width:25%"></div></div><span class="risk-lbl low">Low</span></div></td>
+              <td><span class="badge badge-approved">Approved</span></td>
+            </tr>
+            <tr onclick="setApplicant(1);switchPanel('chat',document.querySelectorAll('.nav-item')[1])">
+              <td><div class="td-name">Priya Sharma</div><div class="td-sub">BUSINESS</div></td>
+              <td>SME Loan</td><td class="score-mono">₹18L</td><td class="score-mono">689</td>
+              <td><div class="risk-track"><div class="risk-bar"><div class="risk-fill risk-med" style="width:58%"></div></div><span class="risk-lbl med">Med</span></div></td>
+              <td><span class="badge badge-review">In Review</span></td>
+            </tr>
+            <tr onclick="setApplicant(2);switchPanel('chat',document.querySelectorAll('.nav-item')[1])">
+              <td><div class="td-name">Ravi Kumar</div><div class="td-sub">PERSONAL</div></td>
+              <td>Personal</td><td class="score-mono">₹5L</td><td class="score-mono">598</td>
+              <td><div class="risk-track"><div class="risk-bar"><div class="risk-fill risk-high" style="width:80%"></div></div><span class="risk-lbl high">High</span></div></td>
+              <td><span class="badge badge-rejected">Rejected</span></td>
+            </tr>
+            <tr onclick="setApplicant(3);switchPanel('chat',document.querySelectorAll('.nav-item')[1])">
+              <td><div class="td-name">Sunita Rao</div><div class="td-sub">VEHICLE</div></td>
+              <td>Auto Loan</td><td class="score-mono">₹8.5L</td><td class="score-mono">731</td>
+              <td><div class="risk-track"><div class="risk-bar"><div class="risk-fill risk-low" style="width:30%"></div></div><span class="risk-lbl low">Low</span></div></td>
+              <td><span class="badge badge-approved">Approved</span></td>
+            </tr>
+            <tr onclick="setApplicant(4);switchPanel('chat',document.querySelectorAll('.nav-item')[1])">
+              <td><div class="td-name">Vikram Nair</div><div class="td-sub">HOME LOAN</div></td>
+              <td>Mortgage</td><td class="score-mono">₹65L</td><td class="score-mono">648</td>
+              <td><div class="risk-track"><div class="risk-bar"><div class="risk-fill risk-med" style="width:50%"></div></div><span class="risk-lbl med">Med</span></div></td>
+              <td><span class="badge badge-pending">Pending</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="dash-bottom">
+          <div class="info-card">
+            <div class="info-card-hd"><i class="ti ti-robot" style="font-size:12px"></i>AI Processing Pipeline</div>
+            <div class="pipeline-item"><div class="pipeline-dot"></div>PDF / OCR Extraction — Active</div>
+            <div class="pipeline-item"><div class="pipeline-dot"></div>NLP Chunking &amp; Embedding — Active</div>
+            <div class="pipeline-item"><div class="pipeline-dot"></div>FAISS Vector Retrieval — Active</div>
+            <div class="pipeline-item"><div class="pipeline-dot"></div>LLM Reasoning (RAG) — Active</div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-hd"><i class="ti ti-shield-check" style="font-size:12px"></i>KYC &amp; Compliance</div>
+            <div class="kyc-row"><span>PAN Verified</span><span class="kyc-val" style="color:var(--green)">38 / 47</span></div>
+            <div class="kyc-row"><span>Aadhaar Linked</span><span class="kyc-val" style="color:var(--green)">41 / 47</span></div>
+            <div class="kyc-row"><span>Income Verified</span><span class="kyc-val" style="color:var(--amber)">29 / 47</span></div>
+            <div class="kyc-row"><span>Fraud Flags</span><span class="kyc-val" style="color:var(--red)">3</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI CHAT -->
+    <div class="panel" id="panel-chat">
+      <div class="chat-layout">
+        <div class="chat-sidebar">
+          <div class="chat-sidebar-hd">Applicants</div>
+          <div class="chat-sidebar-list">
+            <div class="appl-card selected" onclick="setApplicant(0)">
+              <div class="appl-card-name">Arjun Mehta</div>
+              <div class="appl-card-loan">MORTGAGE · ₹42L</div>
+              <div class="appl-card-score score-green">762</div>
+            </div>
+            <div class="appl-card" onclick="setApplicant(1)">
+              <div class="appl-card-name">Priya Sharma</div>
+              <div class="appl-card-loan">SME · ₹18L</div>
+              <div class="appl-card-score score-amber">689</div>
+            </div>
+            <div class="appl-card" onclick="setApplicant(2)">
+              <div class="appl-card-name">Ravi Kumar</div>
+              <div class="appl-card-loan">PERSONAL · ₹5L</div>
+              <div class="appl-card-score score-red">598</div>
+            </div>
+            <div class="appl-card" onclick="setApplicant(3)">
+              <div class="appl-card-name">Sunita Rao</div>
+              <div class="appl-card-loan">AUTO · ₹8.5L</div>
+              <div class="appl-card-score score-green">731</div>
+            </div>
+            <div class="appl-card" onclick="setApplicant(4)">
+              <div class="appl-card-name">Vikram Nair</div>
+              <div class="appl-card-loan">MORTGAGE · ₹65L</div>
+              <div class="appl-card-score score-amber">648</div>
+            </div>
+          </div>
+        </div>
+        <div class="chat-main">
+          <div class="ctx-bar">
+            <span class="ctx-item"><span class="ctx-key">Applicant: </span><span class="ctx-val" id="ctx-name">Arjun Mehta</span></span>
+            <span class="ctx-item"><span class="ctx-key">Loan: </span><span class="ctx-val" id="ctx-loan">Mortgage ₹42L</span></span>
+            <span class="ctx-item"><span class="ctx-key">Credit: </span><span class="ctx-val" id="ctx-score">762</span></span>
+            <span class="ctx-item"><span class="ctx-key">DTI: </span><span class="ctx-val" id="ctx-dti">32%</span></span>
+            <span class="ctx-item"><span class="ctx-key">Risk: </span><span class="ctx-val" id="ctx-risk" style="color:var(--green)">Low</span></span>
+          </div>
+          <div class="chat-msgs" id="chat-msgs">
+            <div class="msg ai">
+              <div class="msg-av ai">AI</div>
+              <div class="msg-bub"><strong>AI Loan Assistant ready.</strong> Arjun Mehta's profile has been processed via NLP &amp; RAG. Credit 762 · DTI 32% · Income ₹1.2L/mo verified. No fraud flags. Ask me anything.</div>
+            </div>
+          </div>
+          <div class="typing-ind" id="typing"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+          <div class="quick-pills">
+            <button class="qpill" onclick="sendQuick('Summarize this applicant\\'s financial profile')">Summarize profile</button>
+            <button class="qpill" onclick="sendQuick('What is the risk assessment for this loan?')">Risk assessment</button>
+            <button class="qpill" onclick="sendQuick('Are there any missing documents?')">Check documents</button>
+            <button class="qpill" onclick="sendQuick('Should this loan be approved?')">Approval rec.</button>
+          </div>
+          <div class="chat-input-row">
+            <textarea class="chat-input" id="chat-input" placeholder="Ask about this applicant's loan, documents, risk…" onkeydown="handleKey(event)"></textarea>
+            <button class="send-btn" onclick="sendMessage()"><i class="ti ti-send"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOCUMENTS -->
+    <div class="panel" id="panel-docs">
+      <div class="doc-layout">
+        <div class="doc-list">
+          <div class="doc-list-hd">Documents</div>
+          <div class="doc-item selected" onclick="selectDoc(0,this)">
+            <div class="doc-type">Bank Statement</div>
+            <div class="doc-who">ARJUN MEHTA</div>
+            <div class="doc-st"><div class="doc-dot ok"></div><div class="doc-st-lbl">Verified</div></div>
+          </div>
+          <div class="doc-item" onclick="selectDoc(1,this)">
+            <div class="doc-type">Income Proof</div>
+            <div class="doc-who">ARJUN MEHTA</div>
+            <div class="doc-st"><div class="doc-dot ok"></div><div class="doc-st-lbl">Verified</div></div>
+          </div>
+          <div class="doc-item" onclick="selectDoc(2,this)">
+            <div class="doc-type">Credit Report</div>
+            <div class="doc-who">PRIYA SHARMA</div>
+            <div class="doc-st"><div class="doc-dot warn"></div><div class="doc-st-lbl">Review needed</div></div>
+          </div>
+          <div class="doc-item" onclick="selectDoc(3,this)">
+            <div class="doc-type">KYC — PAN</div>
+            <div class="doc-who">RAVI KUMAR</div>
+            <div class="doc-st"><div class="doc-dot err"></div><div class="doc-st-lbl">Mismatch found</div></div>
+          </div>
+          <div class="doc-item" onclick="selectDoc(4,this)">
+            <div class="doc-type">Property Docs</div>
+            <div class="doc-who">VIKRAM NAIR</div>
+            <div class="doc-st"><div class="doc-dot warn"></div><div class="doc-st-lbl">Incomplete</div></div>
+          </div>
+        </div>
+        <div class="doc-detail" id="doc-detail"></div>
+      </div>
+    </div>
+
+    <!-- APPROVAL -->
+    <div class="panel" id="panel-approval">
+      <div class="approval-scroll" id="approval-cards"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const applicants = [
+  { name:'Arjun Mehta', loan:'Mortgage ₹42L', score:762, dti:'32%', risk:'Low', riskColor:'var(--green)', income:'₹1.2L/mo', employment:'Salaried · 8 yrs', fraud:'None' },
+  { name:'Priya Sharma', loan:'SME Loan ₹18L', score:689, dti:'44%', risk:'Medium', riskColor:'var(--amber)', income:'₹78K/mo', employment:'Self-Employed · 4 yrs', fraud:'1 flag' },
+  { name:'Ravi Kumar', loan:'Personal ₹5L', score:598, dti:'61%', risk:'High', riskColor:'var(--red)', income:'₹32K/mo', employment:'Contract · 1.5 yrs', fraud:'2 flags' },
+  { name:'Sunita Rao', loan:'Auto ₹8.5L', score:731, dti:'28%', risk:'Low', riskColor:'var(--green)', income:'₹95K/mo', employment:'Salaried · 6 yrs', fraud:'None' },
+  { name:'Vikram Nair', loan:'Mortgage ₹65L', score:648, dti:'51%', risk:'Medium', riskColor:'var(--amber)', income:'₹1.4L/mo', employment:'Salaried · 3 yrs', fraud:'None' },
+];
+let currentApplicant = 0;
+
+function switchPanel(name, el) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  if (el) el.classList.add('active');
+  const titles = { dashboard:'Overview Dashboard', chat:'AI Loan Assistant', docs:'Document Analysis', approval:'Approval Workflow' };
+  document.getElementById('topbar-title').textContent = titles[name];
+}
+
+function setApplicant(idx) {
+  currentApplicant = idx;
+  document.querySelectorAll('.appl-card').forEach((c,i) => c.classList.toggle('selected', i===idx));
+  const a = applicants[idx];
+  document.getElementById('ctx-name').textContent = a.name;
+  document.getElementById('ctx-loan').textContent = a.loan;
+  document.getElementById('ctx-score').textContent = a.score;
+  document.getElementById('ctx-dti').textContent = a.dti;
+  const r = document.getElementById('ctx-risk');
+  r.textContent = a.risk; r.style.color = a.riskColor;
+  const msgs = document.getElementById('chat-msgs');
+  msgs.innerHTML = `<div class="msg ai"><div class="msg-av ai">AI</div><div class="msg-bub"><strong>Switched to ${a.name}.</strong> ${a.loan} · Credit ${a.score} · DTI ${a.dti} · Risk: <span style="color:${a.riskColor}">${a.risk}</span>. Fraud signals: ${a.fraud}. Ready for your questions.</div></div>`;
+}
+
+const docData = [
+  { title:'Bank Statement — Arjun Mehta', status:'ok', statusText:'Verified by AI', fields:[['Name','Arjun Mehta'],['Account No','XXXX-4821'],['Avg Balance','₹2.8L'],['Txn Count (6mo)','142'],['Salary Credits','₹1.2L/mo'],['EMI Debits','₹38,500/mo'],['Bounce Count','0'],['Closing Balance','₹3.1L']], risks:[], warns:[] },
+  { title:'Income Proof — Arjun Mehta', status:'ok', statusText:'Verified by AI', fields:[['Employer','Infosys Ltd'],['Designation','Sr. Engineer'],['Gross Salary','₹1.42L/mo'],['Net Salary','₹1.19L/mo'],['Experience','8 years'],['Form 16','Available'],['ITR Filed','3 years']], risks:[], warns:['Minor gap: ITR 2022 not uploaded'] },
+  { title:'Credit Report — Priya Sharma', status:'warn', statusText:'Review needed', fields:[['CIBIL Score','689'],['Active Loans','3'],['Overdue Amount','₹12,500'],['Credit Utilization','72%'],['Inquiries (6mo)','4'],['Oldest Account','2016']], risks:[], warns:['High credit utilization (72%) above 30% threshold','4 hard inquiries in 6 months detected','Overdue ₹12,500 on credit card'] },
+  { title:'KYC — PAN — Ravi Kumar', status:'err', statusText:'Mismatch found', fields:[['PAN Number','ABCPK1234X'],['Name on PAN','Ravikumar S'],['Name on Aadhaar','Ravi Kumar'],['DOB Match','Yes'],['Address Match','No']], risks:['Name mismatch between PAN and Aadhaar — possible fraud indicator','Address on KYC documents does not match bank records'], warns:[] },
+  { title:'Property Docs — Vikram Nair', status:'warn', statusText:'Incomplete', fields:[['Property Address','Koramangala, Bengaluru'],['Property Value','₹1.1 Cr'],['Legal Status','Under dispute'],['Title Deed','Not uploaded'],['NOC','Pending']], risks:['Property title under legal dispute — high risk'], warns:['Title deed not uploaded','NOC from builder pending'] },
+];
+
+function selectDoc(idx, el) {
+  document.querySelectorAll('.doc-item').forEach(d => d.classList.remove('selected'));
+  el.classList.add('selected');
+  const d = docData[idx];
+  const statusBadge = d.status === 'ok' ? 'badge-approved' : d.status === 'warn' ? 'badge-review' : 'badge-rejected';
+  let html = `<div class="doc-dtl-title"><i class="ti ti-file-description"></i>${d.title} <span class="badge ${statusBadge}">${d.statusText}</span></div>`;
+  d.risks.forEach(r => { html += `<div class="alert-bar risk"><i class="ti ti-alert-circle"></i>${r}</div>`; });
+  d.warns.forEach(w => { html += `<div class="alert-bar warn"><i class="ti ti-alert-triangle"></i>${w}</div>`; });
+  html += `<div class="extract-box"><div class="extract-box-hd"><i class="ti ti-scan" style="font-size:12px"></i>Extracted Fields — NLP + OCR</div><div class="extract-grid">`;
+  d.fields.forEach(([k,v]) => { html += `<div><div class="ex-key">${k}</div><div class="ex-val">${v}</div></div>`; });
+  html += `</div></div>`;
+  document.getElementById('doc-detail').innerHTML = html;
+}
+selectDoc(0, document.querySelector('.doc-item.selected'));
+
+const approvalData = [
+  { name:'Arjun Mehta', loan:'Mortgage ₹42L', score:762, criteria:[['DTI Ratio','32% ✓','pass'],['Credit Score','762 ✓','pass'],['Income','₹1.2L/mo ✓','pass'],['Fraud Check','Clear ✓','pass']], rec:'APPROVE', recColor:'var(--green)', summary:'Strong profile. Low DTI, high credit score, verified income. Recommend approval.' },
+  { name:'Priya Sharma', loan:'SME ₹18L', score:689, criteria:[['DTI Ratio','44% ⚠','warn'],['Credit Score','689 ⚠','warn'],['Income','₹78K/mo ✓','pass'],['Fraud Check','1 flag ⚠','warn']], rec:'REVIEW', recColor:'var(--amber)', summary:'Moderate risk. High credit utilization and fraud flag require senior officer review.' },
+  { name:'Ravi Kumar', loan:'Personal ₹5L', score:598, criteria:[['DTI Ratio','61% ✗','fail'],['Credit Score','598 ✗','fail'],['Income','₹32K/mo ✗','fail'],['Fraud Check','2 flags ✗','fail']], rec:'REJECT', recColor:'var(--red)', summary:'High risk profile. Multiple red flags across all criteria. Recommend rejection.' },
+];
+
+function buildApprovals() {
+  let html = '';
+  approvalData.forEach((a,idx) => {
+    const recIcon = a.rec === 'APPROVE' ? 'ti-check' : a.rec === 'REVIEW' ? 'ti-alert-triangle' : 'ti-x';
+    html += `<div class="appr-card" id="ac-${idx}">
+      <div id="banner-${idx}" class="decision-banner"></div>
+      <div class="appr-hd">
+        <div>
+          <div class="appr-name">${a.name}</div>
+          <div class="appr-meta">${a.loan} &nbsp;·&nbsp; CREDIT ${a.score}</div>
+        </div>
+        <div class="ai-rec">
+          <div class="ai-rec-val" style="color:${a.recColor}"><i class="ti ${recIcon}" style="font-size:14px;vertical-align:-2px"></i> ${a.rec}</div>
+          <div class="ai-rec-lbl">AI Recommendation</div>
+        </div>
+      </div>
+      <div class="appr-summary">${a.summary}</div>
+      <div class="criteria-grid">
+        ${a.criteria.map(([n,v,s])=>`<div class="crit-item"><div class="crit-lbl">${n}</div><div class="crit-val crit-${s}">${v}</div></div>`).join('')}
+      </div>
+      <div class="action-row">
+        <button class="btn-appr" onclick="decide(${idx},'approved')"><i class="ti ti-check" style="font-size:13px"></i>Approve</button>
+        <button class="btn-rev" onclick="decide(${idx},'review')"><i class="ti ti-flag" style="font-size:13px"></i>Flag Review</button>
+        <button class="btn-rej" onclick="decide(${idx},'rejected')"><i class="ti ti-x" style="font-size:13px"></i>Reject</button>
+      </div>
+    </div>`;
+  });
+  document.getElementById('approval-cards').innerHTML = html;
+}
+
+function decide(idx, verdict) {
+  const b = document.getElementById('banner-'+idx);
+  if (verdict === 'approved') {
+    b.className = 'decision-banner approved';
+    b.innerHTML = '<i class="ti ti-check-circle"></i> Decision recorded: APPROVED by Gayathri Devi';
+  } else if (verdict === 'review') {
+    b.className = 'decision-banner flagged';
+    b.innerHTML = '<i class="ti ti-flag"></i> Flagged for senior review';
+  } else {
+    b.className = 'decision-banner rejected';
+    b.innerHTML = '<i class="ti ti-x-circle"></i> Decision recorded: REJECTED by Gayathri Devi';
+  }
+}
+buildApprovals();
+
+async function sendMessage() {
+  const inp = document.getElementById('chat-input');
+  const text = inp.value.trim();
+  if (!text) return;
+  inp.value = '';
+  appendMsg('user', text);
+  showTyping(true);
+  const a = applicants[currentApplicant];
+  const sys = `You are an AI banking assistant for loan approvals at LoanIQ. Analyze loan applications and give professional, concise insights. Current applicant: Name: ${a.name}, Loan: ${a.loan}, Credit Score: ${a.score}, DTI: ${a.dti}, Risk: ${a.risk}, Monthly Income: ${a.income}, Employment: ${a.employment}, Fraud flags: ${a.fraud}. Keep responses short (2-4 sentences), professional, specific. Use bullet points when listing items.`;
+  try {
+    const resp = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json' },
+      body: JSON.stringify({ model:'claude-sonnet-4-20250514', max_tokens:1000, system:sys, messages:[{role:'user',content:text}] })
+    });
+    const data = await resp.json();
+    const reply = data.content?.map(c=>c.text||'').join('') || 'Unable to generate response.';
+    showTyping(false);
+    appendMsg('ai', reply);
+  } catch(e) {
+    showTyping(false);
+    appendMsg('ai', 'Connection error. Please check and try again.');
+  }
+}
+
+function sendQuick(text) {
+  document.getElementById('chat-input').value = text;
+  sendMessage();
+}
+
+function appendMsg(role, text) {
+  const msgs = document.getElementById('chat-msgs');
+  const div = document.createElement('div');
+  div.className = 'msg ' + role;
+  const fmt = text.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+  div.innerHTML = `<div class="msg-av ${role}">${role==='ai'?'AI':'You'}</div><div class="msg-bub">${fmt}</div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showTyping(show) {
+  document.getElementById('typing').classList.toggle('on', show);
+  document.getElementById('chat-msgs').scrollTop = 99999;
+}
+
+function handleKey(e) {
+  if (e.key==='Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+}
+</script>

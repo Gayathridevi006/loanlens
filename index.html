@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LoanSight — AI Banking Document Processor</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
+<style>
+  /* ── Design Tokens ─────────────────────────────────── */
+  :root {
+    --navy:   #0B1F3A;
+    --teal:   #0D7C66;
+    --teal2:  #13A68A;
+    --steel:  #1C3D5A;
+    --white:  #FFFFFF;
+    --off:    #F4F7FA;
+    --muted:  #8FA3B1;
+    --border: #D4E2EC;
+    --danger: #C0392B;
+    --warn:   #D68910;
+    --ok:     #1D8348;
+    --radius: 10px;
+    --shadow: 0 2px 14px rgba(11,31,58,.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: var(--off);
+    color: var(--navy);
+    min-height: 100vh;
+  }
+
+  /* ── Nav ───────────────────────────────────────────── */
+  .nav {
+    background: var(--navy);
+    display: flex; align-items: center;
+    padding: 0 28px; height: 62px;
+    gap: 14px;
+  }
+  .nav-logo {
+    font-size: 20px; font-weight: 800;
+    color: var(--white); letter-spacing: -.5px;
+  }
+  .nav-logo span { color: var(--teal2); }
+  .nav-badge {
+    background: var(--teal);
+    color: var(--white); font-size: 11px;
+    padding: 2px 8px; border-radius: 20px;
+    font-weight: 600; letter-spacing: .5px;
+  }
+  .nav-spacer { flex: 1; }
+  .nav-api {
+    font-size: 12px; color: var(--muted);
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .dot.ok  { background: var(--teal2); }
+  .dot.err { background: var(--danger); }
+
+  /* ── Layout ────────────────────────────────────────── */
+  .shell { display: flex; height: calc(100vh - 62px); }
+  .sidebar {
+    width: 240px; background: var(--white);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    overflow-y: auto; padding: 20px 0;
+    flex-shrink: 0;
+  }
+  .main { flex: 1; overflow-y: auto; padding: 28px; }
+
+  /* ── Sidebar Nav ───────────────────────────────────── */
+  .sb-section { font-size: 10px; font-weight: 700; color: var(--muted);
+    letter-spacing: 1px; padding: 0 20px 8px; margin-top: 16px; }
+  .sb-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 20px; cursor: pointer;
+    font-size: 14px; color: var(--steel);
+    transition: all .15s; border-left: 3px solid transparent;
+  }
+  .sb-item:hover { background: var(--off); color: var(--teal); }
+  .sb-item.active {
+    background: #E8F5F1; color: var(--teal);
+    border-left-color: var(--teal); font-weight: 600;
+  }
+  .sb-icon { width: 18px; text-align: center; font-size: 16px; }
+
+  /* ── Cards ─────────────────────────────────────────── */
+  .card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .card-title {
+    font-size: 16px; font-weight: 700;
+    color: var(--navy); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  /* ── Buttons ───────────────────────────────────────── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 10px 20px; border-radius: 7px;
+    font-size: 14px; font-weight: 600; cursor: pointer;
+    border: none; transition: all .15s;
+  }
+  .btn-primary { background: var(--teal); color: var(--white); }
+  .btn-primary:hover { background: var(--teal2); }
+  .btn-outline {
+    background: transparent; color: var(--teal);
+    border: 2px solid var(--teal);
+  }
+  .btn-outline:hover { background: #E8F5F1; }
+  .btn-sm { padding: 6px 14px; font-size: 13px; }
+  .btn-danger { background: var(--danger); color: var(--white); }
+  .btn:disabled { opacity: .5; cursor: not-allowed; }
+
+  /* ── Form ──────────────────────────────────────────── */
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label { font-size: 13px; font-weight: 600; color: var(--steel); }
+  .form-group input, .form-group select {
+    padding: 10px 14px; border: 1.5px solid var(--border);
+    border-radius: 7px; font-size: 14px; color: var(--navy);
+    outline: none; transition: border .15s;
+  }
+  .form-group input:focus, .form-group select:focus { border-color: var(--teal); }
+
+  /* ── Upload Zone ───────────────────────────────────── */
+  .upload-zone {
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 36px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all .2s;
+    background: var(--off);
+  }
+  .upload-zone:hover, .upload-zone.drag { border-color: var(--teal); background: #E8F5F1; }
+  .upload-icon { font-size: 40px; margin-bottom: 10px; }
+  .upload-text { font-size: 15px; font-weight: 600; color: var(--navy); }
+  .upload-sub { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  /* ── Doc Type Chips ────────────────────────────────── */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .chip {
+    padding: 5px 14px; border-radius: 20px; font-size: 12px;
+    font-weight: 600; cursor: pointer; border: 1.5px solid var(--border);
+    background: var(--white); color: var(--steel);
+    transition: all .15s;
+  }
+  .chip.active { background: var(--teal); color: var(--white); border-color: var(--teal); }
+
+  /* ── Doc Cards ─────────────────────────────────────── */
+  .doc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .doc-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 16px;
+    box-shadow: 0 1px 6px rgba(11,31,58,.07);
+  }
+  .doc-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+  .doc-icon {
+    width: 38px; height: 38px; border-radius: 8px;
+    background: #E8F5F1; display: flex; align-items: center;
+    justify-content: center; font-size: 20px; flex-shrink: 0;
+  }
+  .doc-type { font-size: 13px; font-weight: 700; color: var(--navy); }
+  .doc-id { font-size: 11px; color: var(--muted); }
+  .doc-fields { display: flex; flex-direction: column; gap: 6px; }
+  .doc-field { display: flex; justify-content: space-between; font-size: 12px; }
+  .doc-field-key { color: var(--muted); }
+  .doc-field-val { font-weight: 600; color: var(--navy); max-width: 160px; text-align: right; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* ── Confidence Badges ─────────────────────────────── */
+  .badge {
+    display: inline-block; padding: 2px 8px;
+    border-radius: 10px; font-size: 11px; font-weight: 700;
+  }
+  .badge-high  { background: #D5F0E4; color: var(--ok); }
+  .badge-medium{ background: #FEF3CD; color: var(--warn); }
+  .badge-low   { background: #FDDEDE; color: var(--danger); }
+
+  /* ── Assessment Panel ──────────────────────────────── */
+  .score-ring {
+    width: 100px; height: 100px; border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    border: 6px solid var(--border); position: relative;
+    flex-shrink: 0;
+  }
+  .score-num { font-size: 28px; font-weight: 900; line-height: 1; }
+  .score-lbl { font-size: 10px; color: var(--muted); font-weight: 600; }
+  .score-row { display: flex; align-items: center; gap: 24px; margin-bottom: 20px; }
+  .score-meta { flex: 1; }
+  .status-pill {
+    display: inline-block; padding: 4px 14px; border-radius: 20px;
+    font-size: 12px; font-weight: 700; letter-spacing: .5px;
+    margin-bottom: 6px;
+  }
+  .status-APPROVED   { background: #D5F0E4; color: var(--ok); }
+  .status-CONDITIONAL{ background: #FEF3CD; color: var(--warn); }
+  .status-REVIEW_REQUIRED { background: #FDDEDE; color: var(--danger); }
+
+  .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+  .metric-box {
+    background: var(--off); border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .metric-val { font-size: 20px; font-weight: 800; color: var(--navy); }
+  .metric-lbl { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .checklist { display: flex; flex-direction: column; gap: 8px; }
+  .check-item { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+  .check-ok   { color: var(--ok); }
+  .check-miss { color: var(--muted); }
+
+  .issues-list { display: flex; flex-direction: column; gap: 6px; }
+  .issue-item { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--danger); }
+  .strength-item { display: flex; align-items: flex-start; gap: 8px; font-size: 13px; color: var(--ok); }
+
+  /* ── Tables ────────────────────────────────────────── */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--off); color: var(--muted); font-size: 11px; font-weight: 700;
+       letter-spacing: .5px; padding: 10px 14px; text-align: left; }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); color: var(--navy); }
+  tr:hover td { background: var(--off); }
+
+  /* ── Misc ──────────────────────────────────────────── */
+  .page-title { font-size: 24px; font-weight: 800; color: var(--navy); margin-bottom: 4px; }
+  .page-sub { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+  .divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+  .flex-row { display: flex; align-items: center; gap: 12px; }
+  .ml-auto { margin-left: auto; }
+  .text-muted { color: var(--muted); font-size: 13px; }
+  .raw-text { font-family: monospace; font-size: 11px; color: var(--steel);
+    background: var(--off); padding: 12px; border-radius: 6px;
+    max-height: 140px; overflow-y: auto; white-space: pre-wrap; margin-top: 10px; }
+  .empty-state { text-align: center; padding: 60px 20px; color: var(--muted); }
+  .empty-icon { font-size: 48px; margin-bottom: 12px; }
+  .spinner {
+    border: 3px solid var(--border);
+    border-top-color: var(--teal);
+    border-radius: 50%;
+    width: 24px; height: 24px;
+    animation: spin .8s linear infinite;
+    display: inline-block;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .toast {
+    position: fixed; bottom: 24px; right: 24px;
+    background: var(--navy); color: var(--white);
+    padding: 12px 20px; border-radius: 8px;
+    font-size: 14px; font-weight: 500;
+    box-shadow: 0 4px 20px rgba(0,0,0,.3);
+    z-index: 1000; animation: slideIn .3s ease;
+  }
+  @keyframes slideIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+  @media (max-width: 768px) {
+    .sidebar { display: none; }
+    .form-row { grid-template-columns: 1fr; }
+    .metrics-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useCallback, useEffect, useRef } = React;
+
+const API = "http://localhost:5000/api";
+
+// ── Helpers ──────────────────────────────────────────────────────────────────
+const DOC_ICONS = {
+  salary_slip: "💰",
+  bank_statement: "🏦",
+  form_16: "📋",
+  utility_bill: "⚡",
+  cancelled_cheque: "🏷️",
+  income_tax_return: "📊",
+  unknown: "📄",
+};
+
+const NAV_ITEMS = [
+  { id: "dashboard", icon: "🏠", label: "Dashboard" },
+  { id: "new-application", icon: "➕", label: "New Application" },
+  { id: "applications", icon: "📁", label: "Applications" },
+  { id: "scanner", icon: "🔍", label: "Quick Scan" },
+];
+
+function useToast() {
+  const [msg, setMsg] = useState(null);
+  const show = (m) => { setMsg(m); setTimeout(() => setMsg(null), 3000); };
+  return { msg, show };
+}
+
+async function apiCall(path, method = "GET", body = null) {
+  const opts = { method, headers: { "Content-Type": "application/json" } };
+  if (body) opts.body = JSON.stringify(body);
+  const res = await fetch(API + path, opts);
+  if (!res.ok) throw new Error(`API error ${res.status}`);
+  return res.json();
+}
+
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const r = new FileReader();
+    r.onload = (e) => resolve(e.target.result);
+    r.onerror = reject;
+    r.readAsDataURL(file);
+  });
+}
+
+// ── Components ────────────────────────────────────────────────────────────────
+
+function Badge({ level }) {
+  const cls = `badge badge-${level.toLowerCase()}`;
+  return <span className={cls}>{level}</span>;
+}
+
+function DocCard({ doc, showRaw }) {
+  const [expanded, setExpanded] = useState(false);
+  const fields = doc.fields || {};
+  const nonEmpty = Object.entries(fields).filter(([, v]) => v);
+
+  return (
+    <div className="doc-card">
+      <div className="doc-header">
+        <div className="doc-icon">{DOC_ICONS[doc.doc_type] || "📄"}</div>
+        <div>
+          <div className="doc-type">{doc.doc_type_label}</div>
+          <div className="doc-id">ID: {doc.doc_id} &nbsp;
+            <Badge level={doc.confidence} />
+          </div>
+        </div>
+      </div>
+      <div className="doc-fields">
+        {nonEmpty.slice(0, expanded ? nonEmpty.length : 5).map(([k, v]) => (
+          <div className="doc-field" key={k}>
+            <span className="doc-field-key">{k.replace(/_/g, " ")}</span>
+            <span className="doc-field-val" title={v}>{v}</span>
+          </div>
+        ))}
+        {nonEmpty.length > 5 && (
+          <button className="btn btn-outline btn-sm" style={{ marginTop: 6 }}
+            onClick={() => setExpanded(!expanded)}>
+            {expanded ? "Show less" : `+${nonEmpty.length - 5} more fields`}
+          </button>
+        )}
+      </div>
+      {showRaw && doc.raw_text_preview && (
+        <div className="raw-text">{doc.raw_text_preview}</div>
+      )}
+    </div>
+  );
+}
+
+function ScoreRing({ score }) {
+  const color = score >= 75 ? "var(--ok)" : score >= 50 ? "var(--warn)" : "var(--danger)";
+  return (
+    <div className="score-ring" style={{ borderColor: color }}>
+      <span className="score-num" style={{ color }}>{score}</span>
+      <span className="score-lbl">/ 100</span>
+    </div>
+  );
+}
+
+function AssessmentPanel({ assessment }) {
+  if (!assessment) return (
+    <div className="empty-state">
+      <div className="empty-icon">📊</div>
+      <div>Upload documents to generate assessment</div>
+    </div>
+  );
+
+  const { score, risk_level, status, recommendation, max_eligible_loan,
+    monthly_income, bank_balance, doc_completeness, strengths, issues,
+    docs_submitted } = assessment;
+
+  return (
+    <div>
+      <div className="score-row">
+        <ScoreRing score={score} />
+        <div className="score-meta">
+          <span className={`status-pill status-${status}`}>{status.replace(/_/g, " ")}</span>
+          <div style={{ fontSize: 14, color: "var(--steel)", marginTop: 4 }}>{recommendation}</div>
+          <div style={{ fontSize: 12, color: "var(--muted)", marginTop: 4 }}>
+            Risk: <strong>{risk_level}</strong> &nbsp;|&nbsp; Doc completeness: <strong>{doc_completeness}</strong>
+          </div>
+        </div>
+      </div>
+
+      <div className="metrics-grid">
+        {[
+          { val: monthly_income, lbl: "Monthly Income" },
+          { val: max_eligible_loan, lbl: "Max Eligible Loan" },
+          { val: bank_balance, lbl: "Bank Balance" },
+        ].map(({ val, lbl }) => (
+          <div className="metric-box" key={lbl}>
+            <div className="metric-val">{val}</div>
+            <div className="metric-lbl">{lbl}</div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+        <div>
+          <div className="card-title" style={{ fontSize: 13, marginBottom: 10 }}>📋 Document Status</div>
+          <div className="checklist">
+            {Object.entries(docs_submitted).map(([key, ok]) => (
+              <div className={`check-item ${ok ? "check-ok" : "check-miss"}`} key={key}>
+                <span>{ok ? "✅" : "⬜"}</span>
+                <span>{key.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase())}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div>
+          {strengths.length > 0 && (
+            <>
+              <div className="card-title" style={{ fontSize: 13, marginBottom: 10 }}>💪 Strengths</div>
+              <div className="issues-list" style={{ marginBottom: 12 }}>
+                {strengths.map((s, i) => <div className="strength-item" key={i}><span>✓</span><span>{s}</span></div>)}
+              </div>
+            </>
+          )}
+          {issues.length > 0 && (
+            <>
+              <div className="card-title" style={{ fontSize: 13, marginBottom: 10 }}>⚠️ Issues</div>
+              <div className="issues-list">
+                {issues.map((s, i) => <div className="issue-item" key={i}><span>!</span><span>{s}</span></div>)}
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function UploadZone({ onFiles, loading }) {
+  const [drag, setDrag] = useState(false);
+  const ref = useRef();
+
+  const handle = async (files) => {
+    if (!files.length) return;
+    const arr = Array.from(files);
+    onFiles(arr);
+  };
+
+  return (
+    <div
+      className={`upload-zone ${drag ? "drag" : ""}`}
+      onDragOver={(e) => { e.preventDefault(); setDrag(true); }}
+      onDragLeave={() => setDrag(false)}
+      onDrop={(e) => { e.preventDefault(); setDrag(false); handle(e.dataTransfer.files); }}
+      onClick={() => ref.current.click()}
+    >
+      <input ref={ref} type="file" accept="image/*,application/pdf" multiple
+        style={{ display: "none" }}
+        onChange={(e) => handle(e.target.files)} />
+      {loading
+        ? <><div className="spinner" /><div style={{ marginTop: 12 }} className="upload-sub">Processing OCR…</div></>
+        : <>
+            <div className="upload-icon">📎</div>
+            <div className="upload-text">Drop documents here or click to upload</div>
+            <div className="upload-sub">Salary slips · Bank statements · Form 16 · Utility bills · Cancelled cheques</div>
+          </>
+      }
+    </div>
+  );
+}
+
+// ── Pages ─────────────────────────────────────────────────────────────────────
+
+function DashboardPage({ applications, onNavigate }) {
+  const total = applications.length;
+  const approved = applications.filter(a => a.assessment?.status === "APPROVED").length;
+  const pending = applications.filter(a => a.status === "pending").length;
+
+  return (
+    <div>
+      <div className="page-title">Dashboard</div>
+      <div className="page-sub">AI-powered loan document processing</div>
+
+      <div className="metrics-grid" style={{ gridTemplateColumns: "repeat(4, 1fr)" }}>
+        {[
+          { val: total, lbl: "Total Applications", icon: "📁" },
+          { val: approved, lbl: "Approved", icon: "✅" },
+          { val: pending, lbl: "Pending Review", icon: "⏳" },
+          { val: total - approved - pending, lbl: "In Progress", icon: "🔄" },
+        ].map(({ val, lbl, icon }) => (
+          <div className="card" key={lbl} style={{ textAlign: "center" }}>
+            <div style={{ fontSize: 28 }}>{icon}</div>
+            <div style={{ fontSize: 32, fontWeight: 900, color: "var(--navy)", marginTop: 8 }}>{val}</div>
+            <div className="text-muted" style={{ marginTop: 4 }}>{lbl}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="card">
+        <div className="card-title">📋 Recent Applications</div>
+        {applications.length === 0
+          ? <div className="empty-state"><div className="empty-icon">📂</div><div>No applications yet</div>
+              <button className="btn btn-primary" style={{ marginTop: 16 }}
+                onClick={() => onNavigate("new-application")}>Create First Application</button>
+            </div>
+          : <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>ID</th><th>Applicant</th><th>Loan Type</th><th>Score</th><th>Status</th><th>Docs</th><th>Created</th></tr>
+                </thead>
+                <tbody>
+                  {applications.map(a => (
+                    <tr key={a.id}>
+                      <td><code style={{ fontSize: 12 }}>{a.id}</code></td>
+                      <td>{a.applicant_name || "—"}</td>
+                      <td style={{ textTransform: "capitalize" }}>{a.loan_type}</td>
+                      <td>
+                        {a.assessment
+                          ? <span style={{ fontWeight: 700, color: a.assessment.score >= 75 ? "var(--ok)" : a.assessment.score >= 50 ? "var(--warn)" : "var(--danger)" }}>{a.assessment.score}/100</span>
+                          : "—"
+                        }
+                      </td>
+                      <td>
+                        {a.assessment
+                          ? <span className={`status-pill status-${a.assessment.status}`} style={{ fontSize: 11 }}>{a.assessment.status.replace(/_/g, " ")}</span>
+                          : <span className="badge badge-medium">Pending</span>
+                        }
+                      </td>
+                      <td>{a.documents.length}</td>
+                      <td className="text-muted">{a.created_at?.slice(0, 10)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+        }
+      </div>
+
+      <div className="card">
+        <div className="card-title">📌 Supported Document Types</div>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: 12 }}>
+          {Object.entries(DOC_ICONS).filter(([k]) => k !== "unknown").map(([key, icon]) => (
+            <div key={key} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 14px",
+              background: "var(--off)", borderRadius: 8 }}>
+              <span style={{ fontSize: 22 }}>{icon}</span>
+              <span style={{ fontSize: 13, fontWeight: 600, color: "var(--steel)" }}>
+                {key.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase())}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function NewApplicationPage({ onCreated, toast }) {
+  const [form, setForm] = useState({ applicant_name: "", loan_type: "personal", loan_amount: "" });
+  const [loading, setLoading] = useState(false);
+
+  const submit = async () => {
+    if (!form.applicant_name.trim()) { toast.show("Enter applicant name"); return; }
+    setLoading(true);
+    try {
+      const res = await apiCall("/application/create", "POST", form);
+      toast.show(`✅ Application ${res.application_id} created`);
+      onCreated(res.application_id);
+    } catch {
+      toast.show("❌ Could not connect to API — ensure backend is running");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
+
+  return (
+    <div>
+      <div className="page-title">New Application</div>
+      <div className="page-sub">Create a loan application and upload supporting documents</div>
+
+      <div className="card" style={{ maxWidth: 600 }}>
+        <div className="card-title">👤 Applicant Details</div>
+        <div className="form-row">
+          <div className="form-group">
+            <label>Applicant Name *</label>
+            <input value={form.applicant_name} onChange={set("applicant_name")} placeholder="Full name as on PAN" />
+          </div>
+          <div className="form-group">
+            <label>Loan Type</label>
+            <select value={form.loan_type} onChange={set("loan_type")}>
+              <option value="personal">Personal Loan</option>
+              <option value="home">Home Loan</option>
+              <option value="vehicle">Vehicle Loan</option>
+              <option value="business">Business Loan</option>
+              <option value="education">Education Loan</option>
+            </select>
+          </div>
+        </div>
+        <div className="form-row">
+          <div className="form-group">
+            <label>Requested Loan Amount (₹)</label>
+            <input type="number" value={form.loan_amount} onChange={set("loan_amount")} placeholder="e.g. 500000" />
+          </div>
+        </div>
+        <button className="btn btn-primary" onClick={submit} disabled={loading}>
+          {loading ? <span className="spinner" style={{ width: 16, height: 16 }} /> : "➡️"}
+          {loading ? " Creating…" : " Create & Upload Documents"}
+        </button>
+      </div>
+
+      <div className="card" style={{ maxWidth: 600 }}>
+        <div className="card-title">📋 Required Documents Checklist</div>
+        <div className="checklist">
+          {[
+            ["💰 Salary Slip", "Last 3 months — Mandatory"],
+            ["🏦 Bank Statement", "Last 6 months — Mandatory"],
+            ["📋 Form 16 / TDS", "Last 2 assessment years — Mandatory"],
+            ["🏷️ Cancelled Cheque", "Active bank account — Mandatory"],
+            ["⚡ Utility Bill", "Electricity/Gas — Address proof"],
+            ["📊 ITR Acknowledgement", "Optional but strengthens profile"],
+          ].map(([doc, note]) => (
+            <div className="check-item" key={doc} style={{ color: "var(--steel)" }}>
+              <span>{doc}</span>
+              <span className="text-muted" style={{ marginLeft: "auto" }}>{note}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ApplicationDetailPage({ appId, toast }) {
+  const [app, setApp] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [showRaw, setShowRaw] = useState(false);
+  const [tab, setTab] = useState("documents");
+
+  const load = async () => {
+    setLoading(true);
+    try {
+      const data = await apiCall(`/application/${appId}`);
+      setApp(data);
+    } catch {
+      toast.show("❌ Could not load application");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => { load(); }, [appId]);
+
+  const handleFiles = async (files) => {
+    setUploading(true);
+    for (const file of files) {
+      try {
+        const b64 = await fileToBase64(file);
+        await apiCall("/document/upload", "POST", { application_id: appId, image_b64: b64 });
+        toast.show(`✅ ${file.name} processed`);
+      } catch {
+        toast.show(`❌ Failed to process ${file.name} — check backend`);
+      }
+    }
+    await load();
+    setUploading(false);
+  };
+
+  if (loading) return <div className="empty-state"><div className="spinner" /></div>;
+  if (!app) return <div className="empty-state">Application not found</div>;
+
+  return (
+    <div>
+      <div className="flex-row" style={{ marginBottom: 4 }}>
+        <div>
+          <div className="page-title">{app.applicant_name || "Application"}</div>
+          <div className="page-sub">
+            ID: {app.id} &nbsp;·&nbsp;
+            {app.loan_type?.replace(/\b\w/g, c => c.toUpperCase())} Loan &nbsp;·&nbsp;
+            {app.documents.length} document(s)
+          </div>
+        </div>
+        <div className="ml-auto flex-row">
+          <label style={{ fontSize: 13, color: "var(--muted)" }}>
+            <input type="checkbox" checked={showRaw} onChange={e => setShowRaw(e.target.checked)} style={{ marginRight: 6 }} />
+            Show OCR text
+          </label>
+          <button className="btn btn-outline btn-sm" onClick={load}>🔄 Refresh</button>
+        </div>
+      </div>
+
+      <div className="chips">
+        {["documents", "assessment"].map(t => (
+          <div key={t} className={`chip ${tab === t ? "active" : ""}`} onClick={() => setTab(t)}>
+            {t === "documents" ? "📄 Documents" : "📊 Assessment"}
+          </div>
+        ))}
+      </div>
+
+      {tab === "documents" && (
+        <>
+          <UploadZone onFiles={handleFiles} loading={uploading} />
+          <div style={{ height: 20 }} />
+          {app.documents.length === 0
+            ? <div className="empty-state">
+                <div className="empty-icon">📂</div>
+                <div>No documents uploaded yet</div>
+              </div>
+            : <div className="doc-grid">
+                {app.documents.map(doc => <DocCard key={doc.doc_id} doc={doc} showRaw={showRaw} />)}
+              </div>
+          }
+        </>
+      )}
+
+      {tab === "assessment" && (
+        <div className="card">
+          <div className="card-title">📊 Loan Eligibility Assessment</div>
+          <AssessmentPanel assessment={app.assessment} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ApplicationsPage({ applications, onSelect }) {
+  return (
+    <div>
+      <div className="page-title">All Applications</div>
+      <div className="page-sub">{applications.length} application(s) on record</div>
+      {applications.length === 0
+        ? <div className="empty-state"><div className="empty-icon">📂</div><div>No applications yet</div></div>
+        : <div className="card">
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr><th>ID</th><th>Applicant</th><th>Type</th><th>Requested</th><th>Score</th><th>Status</th><th>Docs</th><th>Action</th></tr>
+                </thead>
+                <tbody>
+                  {applications.map(a => (
+                    <tr key={a.id}>
+                      <td><code style={{ fontSize: 12 }}>{a.id}</code></td>
+                      <td style={{ fontWeight: 600 }}>{a.applicant_name || "—"}</td>
+                      <td style={{ textTransform: "capitalize" }}>{a.loan_type}</td>
+                      <td>{a.loan_amount_requested ? `₹${Number(a.loan_amount_requested).toLocaleString()}` : "—"}</td>
+                      <td>
+                        {a.assessment
+                          ? <span style={{ fontWeight: 700, color: a.assessment.score >= 75 ? "var(--ok)" : a.assessment.score >= 50 ? "var(--warn)" : "var(--danger)" }}>{a.assessment.score}</span>
+                          : "—"}
+                      </td>
+                      <td>
+                        {a.assessment
+                          ? <span className={`status-pill status-${a.assessment.status}`} style={{ fontSize: 11 }}>{a.assessment.status.replace(/_/g, " ")}</span>
+                          : <span className="badge badge-medium">Pending</span>}
+                      </td>
+                      <td>{a.documents.length}</td>
+                      <td>
+                        <button className="btn btn-outline btn-sm" onClick={() => onSelect(a.id)}>Open →</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+      }
+    </div>
+  );
+}
+
+function QuickScanPage({ toast }) {
+  const [uploading, setUploading] = useState(false);
+  const [result, setResult] = useState(null);
+
+  const handleFiles = async (files) => {
+    setUploading(true);
+    setResult(null);
+    try {
+      const b64 = await fileToBase64(files[0]);
+      const data = await apiCall("/document/classify-only", "POST", { image_b64: b64 });
+      setResult(data);
+      toast.show(`✅ Classified as: ${data.doc_type_label}`);
+    } catch {
+      toast.show("❌ OCR failed — check backend connection");
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  return (
+    <div>
+      <div className="page-title">Quick Scan</div>
+      <div className="page-sub">Instantly classify and extract fields from a single document</div>
+
+      <div className="card" style={{ maxWidth: 680 }}>
+        <UploadZone onFiles={handleFiles} loading={uploading} />
+      </div>
+
+      {result && (
+        <div className="card" style={{ maxWidth: 680 }}>
+          <div className="doc-grid" style={{ gridTemplateColumns: "1fr" }}>
+            <DocCard doc={result} showRaw={true} />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── App Root ──────────────────────────────────────────────────────────────────
+function App() {
+  const [page, setPage] = useState("dashboard");
+  const [activeAppId, setActiveAppId] = useState(null);
+  const [applications, setApplications] = useState([]);
+  const [apiOk, setApiOk] = useState(null);
+  const toast = useToast();
+
+  // Poll API health
+  useEffect(() => {
+    const check = async () => {
+      try {
+        await apiCall("/health");
+        setApiOk(true);
+      } catch {
+        setApiOk(false);
+      }
+    };
+    check();
+    const t = setInterval(check, 10000);
+    return () => clearInterval(t);
+  }, []);
+
+  // Load apps on mount / return to list
+  const loadApps = async () => {
+    try {
+      const data = await apiCall("/applications");
+      setApplications(data);
+    } catch {}
+  };
+
+  useEffect(() => {
+    if (page === "dashboard" || page === "applications") loadApps();
+  }, [page]);
+
+  const handleCreated = (id) => {
+    setActiveAppId(id);
+    setPage("app-detail");
+  };
+
+  const handleSelect = (id) => {
+    setActiveAppId(id);
+    setPage("app-detail");
+  };
+
+  const renderPage = () => {
+    switch (page) {
+      case "dashboard":       return <DashboardPage applications={applications} onNavigate={setPage} />;
+      case "new-application": return <NewApplicationPage onCreated={handleCreated} toast={toast} />;
+      case "applications":    return <ApplicationsPage applications={applications} onSelect={handleSelect} />;
+      case "scanner":         return <QuickScanPage toast={toast} />;
+      case "app-detail":      return <ApplicationDetailPage appId={activeAppId} toast={toast} />;
+      default:                return null;
+    }
+  };
+
+  return (
+    <>
+      <nav className="nav">
+        <div className="nav-logo">Loan<span>Sight</span></div>
+        <div className="nav-badge">AI OCR</div>
+        <div className="nav-spacer" />
+        <span className={`dot ${apiOk ? "ok" : "err"}`} style={{ marginRight: 6 }} />
+        <span className="nav-api">{apiOk === null ? "Connecting…" : apiOk ? "API Online" : "API Offline"}</span>
+      </nav>
+
+      <div className="shell">
+        <aside className="sidebar">
+          <div className="sb-section">MAIN</div>
+          {NAV_ITEMS.map(({ id, icon, label }) => (
+            <div key={id}
+              className={`sb-item ${page === id ? "active" : ""}`}
+              onClick={() => { setPage(id); if (id !== "app-detail") setActiveAppId(null); }}>
+              <span className="sb-icon">{icon}</span>
+              {label}
+            </div>
+          ))}
+
+          {activeAppId && (
+            <>
+              <hr className="divider" style={{ margin: "12px 20px" }} />
+              <div className="sb-section">OPEN APPLICATION</div>
+              <div className={`sb-item ${page === "app-detail" ? "active" : ""}`}
+                onClick={() => setPage("app-detail")}>
+                <span className="sb-icon">📑</span>
+                {activeAppId}
+              </div>
+            </>
+          )}
+
+          <div style={{ marginTop: "auto", padding: "20px" }}>
+            <div style={{ fontSize: 11, color: "var(--muted)", lineHeight: 1.6 }}>
+              <div style={{ fontWeight: 700, marginBottom: 4 }}>Tech Stack</div>
+              <div>🐍 Flask + OCR</div>
+              <div>⚛️ React + TypeScript</div>
+              <div>🔍 Tesseract 5</div>
+            </div>
+          </div>
+        </aside>
+
+        <main className="main">{renderPage()}</main>
+      </div>
+
+      {toast.msg && <div className="toast">{toast.msg}</div>}
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
