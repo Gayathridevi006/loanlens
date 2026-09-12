@@ -80,7 +80,7 @@ Protected attributes remain evaluation-only and are excluded from model features
 ## Tests and evaluation
 
 ```bash
-pytest -q
+python -m pytest -q
 cd frontend && npm run build
 ```
 
