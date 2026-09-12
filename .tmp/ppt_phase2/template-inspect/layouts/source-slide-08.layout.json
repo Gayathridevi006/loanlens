@@ -1,0 +1,1185 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/fu1gfa1s",
+    "id": "fu1gfa1s",
+    "slide": 8,
+    "layoutId": "/ppt/slideLayouts/slideLayout1.xml",
+    "layoutName": "DEFAULT",
+    "masterLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+    "backgroundColor": "#FFFFFF",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "Office",
+    "colors": {
+      "accent1": "#4472C4",
+      "accent2": "#ED7D31",
+      "accent3": "#A5A5A5",
+      "accent4": "#FFC000",
+      "accent5": "#5B9BD5",
+      "accent6": "#70AD47",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#44546A",
+      "lt2": "#E7E6E6",
+      "hlink": "#0563C1",
+      "folHlink": "#954F72"
+    },
+    "fontScheme": {
+      "name": "Office",
+      "majorFont": {
+        "latinTypeface": "Calibri Light"
+      },
+      "minorFont": {
+        "latinTypeface": "Calibri"
+      }
+    },
+    "typefaces": [
+      "Calibri",
+      "Calibri Light",
+      "Cambria"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "/ppt/slideLayouts/slideLayout1.xml",
+      "name": "DEFAULT",
+      "parentLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "/ppt/slideMasters/slideMaster1.xml",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/18byd4zy",
+      "id": "2",
+      "name": "Text 0",
+      "bbox": [
+        57.6,
+        38.4,
+        960,
+        30.72
+      ],
+      "geometry": "rect",
+      "text": "UPDATED RESEARCH GAP",
+      "textPreview": "UPDATED RESEARCH GAP",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "UPDATED RESEARCH GAP"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "UPDATED RESEARCH GAP",
+          "runs": [
+            {
+              "index": 1,
+              "text": "UPDATED RESEARCH GAP",
+              "fontSize": 17.33,
+              "typeface": "Calibri",
+              "color": "#E3993B",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/g72x4zyd",
+      "id": "3",
+      "name": "Text 1",
+      "bbox": [
+        57.6,
+        65.28,
+        1113.6,
+        69.12
+      ],
+      "geometry": "rect",
+      "text": "Where LoanLens AI Still Differs From the Literature",
+      "textPreview": "Where LoanLens AI Still Differs From the Literature",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Where LoanLens AI Still Differs From the Literature"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Where LoanLens AI Still Differs From the Literature",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Where LoanLens AI Still Differs From the Literature",
+              "fontSize": 37.33,
+              "typeface": "Cambria",
+              "color": "#1E2761",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ri9g7uhw",
+      "id": "4",
+      "name": "Shape 2",
+      "bbox": [
+        57.6,
+        158.4,
+        40.32,
+        40.32
+      ],
+      "geometry": "ellipse",
+      "fillColor": "#1E2761"
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/6h0fypgb",
+      "id": "5",
+      "name": "Text 3",
+      "bbox": [
+        57.6,
+        158.4,
+        40.32,
+        40.32
+      ],
+      "geometry": "rect",
+      "text": "1",
+      "textPreview": "1",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "1"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "1",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "1",
+              "fontSize": 21.33,
+              "typeface": "Calibri",
+              "color": "#FFFFFF",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/tkby9kzm",
+      "id": "6",
+      "name": "Text 4",
+      "bbox": [
+        115.2,
+        152.64,
+        1084.8,
+        33.6
+      ],
+      "geometry": "rect",
+      "text": "Explainability is post-hoc, not model-native",
+      "textPreview": "Explainability is post-hoc, not model-native",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Explainability is post-hoc, not model-native"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Explainability is post-hoc, not model-native",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Explainability is post-hoc, not model-native",
+              "fontSize": 18,
+              "typeface": "Calibri",
+              "color": "#1E2761",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/sjix0zy1",
+      "id": "7",
+      "name": "Text 5",
+      "bbox": [
+        115.2,
+        185.28,
+        1084.8,
+        52.8
+      ],
+      "geometry": "rect",
+      "text": "Most SHAP/LIME work explains an existing model after training; few pair that with bounded, auditable rule scorecards the way LoanLens does — Phase 2 will compare the two directly.",
+      "textPreview": "Most SHAP/LIME work explains an existing model after training; few pair that with bounded, auditable rule scorecards the way LoanLens doe...",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Most SHAP/LIME work explains an existing model after training; few pair that with bounded, auditable rule scorecards the way LoanLens does — Phase 2 will"
+          },
+          {
+            "index": 2,
+            "text": "compare the two directly."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Most SHAP/LIME work explains an existing model after training; few pair that with bounded, auditable rule scorecards the way LoanLens does — Phase 2 will compare the two directly.",
+          "lineSpacingPercent": 115000,
+          "runs": [
+            {
+              "index": 1,
+              "text": "Most SHAP/LIME work explains an existing model after training; few pair that with bounded, auditable rule scorecards the way LoanLens does — Phase 2 will compare the two directly.",
+              "fontSize": 14.67,
+              "typeface": "Calibri",
+              "color": "#1B1F3B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/je9g3ahk",
+      "id": "8",
+      "name": "Shape 6",
+      "bbox": [
+        57.6,
+        266.88,
+        40.32,
+        40.32
+      ],
+      "geometry": "ellipse",
+      "fillColor": "#E3993B"
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/id0fu50z",
+      "id": "9",
+      "name": "Text 7",
+      "bbox": [
+        57.6,
+        266.88,
+        40.32,
+        40.32
+      ],
+      "geometry": "rect",
+      "text": "2",
+      "textPreview": "2",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "2"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "2",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "2",
+              "fontSize": 21.33,
+              "typeface": "Calibri",
+              "color": "#FFFFFF",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/o7ydoret",
+      "id": "10",
+      "name": "Text 8",
+      "bbox": [
+        115.2,
+        261.12,
+        1084.8,
+        33.6
+      ],
+      "geometry": "rect",
+      "text": "Agentic/LLM systems trade privacy for fluency",
+      "textPreview": "Agentic/LLM systems trade privacy for fluency",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Agentic/LLM systems trade privacy for fluency"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Agentic/LLM systems trade privacy for fluency",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Agentic/LLM systems trade privacy for fluency",
+              "fontSize": 18,
+              "typeface": "Calibri",
+              "color": "#1E2761",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/98rehwve",
+      "id": "11",
+      "name": "Text 9",
+      "bbox": [
+        115.2,
+        293.76,
+        1084.8,
+        52.8
+      ],
+      "geometry": "rect",
+      "text": "Reviewed agentic pipelines call external LLMs for reasoning; LoanLens will keep inference local while borrowing only their auditability ideas.",
+      "textPreview": "Reviewed agentic pipelines call external LLMs for reasoning; LoanLens will keep inference local while borrowing only their auditability i...",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Reviewed agentic pipelines call external LLMs for reasoning; LoanLens will keep inference local while borrowing only their auditability ideas."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Reviewed agentic pipelines call external LLMs for reasoning; LoanLens will keep inference local while borrowing only their auditability ideas.",
+          "lineSpacingPercent": 115000,
+          "runs": [
+            {
+              "index": 1,
+              "text": "Reviewed agentic pipelines call external LLMs for reasoning; LoanLens will keep inference local while borrowing only their auditability ideas.",
+              "fontSize": 14.67,
+              "typeface": "Calibri",
+              "color": "#1B1F3B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/m5gvmhwn",
+      "id": "12",
+      "name": "Shape 10",
+      "bbox": [
+        57.6,
+        375.36,
+        40.32,
+        40.32
+      ],
+      "geometry": "ellipse",
+      "fillColor": "#1E2761"
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/n6pwfmd8",
+      "id": "13",
+      "name": "Text 11",
+      "bbox": [
+        57.6,
+        375.36,
+        40.32,
+        40.32
+      ],
+      "geometry": "rect",
+      "text": "3",
+      "textPreview": "3",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "3"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "3",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "3",
+              "fontSize": 21.33,
+              "typeface": "Calibri",
+              "color": "#FFFFFF",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/0jydkreh",
+      "id": "14",
+      "name": "Text 12",
+      "bbox": [
+        115.2,
+        369.6,
+        1084.8,
+        33.6
+      ],
+      "geometry": "rect",
+      "text": "Federated approaches assume multi-institution data",
+      "textPreview": "Federated approaches assume multi-institution data",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Federated approaches assume multi-institution data"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Federated approaches assume multi-institution data",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Federated approaches assume multi-institution data",
+              "fontSize": 18,
+              "typeface": "Calibri",
+              "color": "#1E2761",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/1k7edwv2",
+      "id": "15",
+      "name": "Text 13",
+      "bbox": [
+        115.2,
+        402.24,
+        1084.8,
+        52.8
+      ],
+      "geometry": "rect",
+      "text": "Cross-bank federated learning solves a data-sharing problem LoanLens does not yet have — but its privacy techniques (no raw data leaving the host) are directly reusable.",
+      "textPreview": "Cross-bank federated learning solves a data-sharing problem LoanLens does not yet have — but its privacy techniques (no raw data leaving ...",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Cross-bank federated learning solves a data-sharing problem LoanLens does not yet have — but its privacy techniques (no raw data leaving the host) are directly"
+          },
+          {
+            "index": 2,
+            "text": "reusable."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Cross-bank federated learning solves a data-sharing problem LoanLens does not yet have — but its privacy techniques (no raw data leaving the host) are directly reusable.",
+          "lineSpacingPercent": 115000,
+          "runs": [
+            {
+              "index": 1,
+              "text": "Cross-bank federated learning solves a data-sharing problem LoanLens does not yet have — but its privacy techniques (no raw data leaving the host) are directly reusable.",
+              "fontSize": 14.67,
+              "typeface": "Calibri",
+              "color": "#1B1F3B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ehgvihwr",
+      "id": "16",
+      "name": "Shape 14",
+      "bbox": [
+        57.6,
+        483.84,
+        40.32,
+        40.32
+      ],
+      "geometry": "ellipse",
+      "fillColor": "#E3993B"
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/zipwbmdc",
+      "id": "17",
+      "name": "Text 15",
+      "bbox": [
+        57.6,
+        483.84,
+        40.32,
+        40.32
+      ],
+      "geometry": "rect",
+      "text": "4",
+      "textPreview": "4",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "4"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "4",
+          "resolvedTextStyle": {
+            "alignment": "center"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "4",
+              "fontSize": 21.33,
+              "typeface": "Calibri",
+              "color": "#FFFFFF",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 17,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/kfixwbe1",
+      "id": "18",
+      "name": "Text 16",
+      "bbox": [
+        115.2,
+        478.08,
+        1084.8,
+        33.6
+      ],
+      "geometry": "rect",
+      "text": "Fraud research favors black-box ensembles",
+      "textPreview": "Fraud research favors black-box ensembles",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Fraud research favors black-box ensembles"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Fraud research favors black-box ensembles",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Fraud research favors black-box ensembles",
+              "fontSize": 18,
+              "typeface": "Calibri",
+              "color": "#1E2761",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 18,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/lgbepgvm",
+      "id": "19",
+      "name": "Text 17",
+      "bbox": [
+        115.2,
+        510.72,
+        1084.8,
+        52.8
+      ],
+      "geometry": "rect",
+      "text": "LightGBM/XGBoost fraud models score well but are harder to justify to a bank officer than a rule scorecard — Phase 2 tests whether a calibrated model plus SHAP can match that transparency.",
+      "textPreview": "LightGBM/XGBoost fraud models score well but are harder to justify to a bank officer than a rule scorecard — Phase 2 tests whether a cali...",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "LightGBM/XGBoost fraud models score well but are harder to justify to a bank officer than a rule scorecard — Phase 2 tests whether a calibrated model plus"
+          },
+          {
+            "index": 2,
+            "text": "SHAP can match that transparency."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "LightGBM/XGBoost fraud models score well but are harder to justify to a bank officer than a rule scorecard — Phase 2 tests whether a calibrated model plus SHAP can match that transparency.",
+          "lineSpacingPercent": 115000,
+          "runs": [
+            {
+              "index": 1,
+              "text": "LightGBM/XGBoost fraud models score well but are harder to justify to a bank officer than a rule scorecard — Phase 2 tests whether a calibrated model plus SHAP can match that transparency.",
+              "fontSize": 14.67,
+              "typeface": "Calibri",
+              "color": "#1B1F3B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 19,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/tw7e9gnq",
+      "id": "20",
+      "name": "Shape 18",
+      "bbox": [
+        57.6,
+        600,
+        1161.6,
+        57.6
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#FCEBD6",
+      "lineColor": "#E3993B",
+      "lineWidth": 1.33
+    },
+    {
+      "order": 20,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/svydgb65",
+      "id": "21",
+      "name": "Text 19",
+      "bbox": [
+        81.6,
+        600,
+        1113.6,
+        57.6
+      ],
+      "geometry": "rect",
+      "text": "Phase 2 keeps LoanLens's local, explainable core — and layers in calibrated models, formal attributions and privacy-aware design patterns drawn from this wider survey.",
+      "textPreview": "Phase 2 keeps LoanLens's local, explainable core — and layers in calibrated models, formal attributions and privacy-aware design patterns...",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Phase 2 keeps LoanLens's local, explainable core — and layers in calibrated models, formal attributions and privacy-aware design patterns drawn from this"
+          },
+          {
+            "index": 2,
+            "text": "wider survey."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Phase 2 keeps LoanLens's local, explainable core — and layers in calibrated models, formal attributions and privacy-aware design patterns drawn from this wider survey.",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Phase 2 keeps LoanLens's local, explainable core — and layers in calibrated models, formal attributions and privacy-aware design patterns drawn from this wider survey.",
+              "fontSize": 15.33,
+              "typeface": "Calibri",
+              "color": "#1E2761",
+              "italic": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 21,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7u5w765k",
+      "id": "22",
+      "name": "Text 20",
+      "bbox": [
+        48,
+        685.44,
+        672,
+        28.8
+      ],
+      "geometry": "rect",
+      "text": "LOANLENS AI  |  PHASE 2 REVIEW",
+      "textPreview": "LOANLENS AI  |  PHASE 2 REVIEW",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "LOANLENS AI  |  PHASE 2 REVIEW"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "LOANLENS AI  |  PHASE 2 REVIEW",
+          "resolvedTextStyle": {
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "LOANLENS AI  |  PHASE 2 REVIEW",
+              "fontSize": 12,
+              "typeface": "Calibri",
+              "color": "#5B6484"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 22,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/6twve1oz",
+      "id": "23",
+      "name": "Text 21",
+      "bbox": [
+        1155.17,
+        685.44,
+        76.8,
+        28.8
+      ],
+      "geometry": "rect",
+      "text": "7 / 15",
+      "textPreview": "7 / 15",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "7 / 15"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "7 / 15",
+          "resolvedTextStyle": {
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "7 / 15",
+              "fontSize": 12,
+              "typeface": "Calibri",
+              "color": "#5B6484"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    }
+  ],
+  "composeRuns": []
+}

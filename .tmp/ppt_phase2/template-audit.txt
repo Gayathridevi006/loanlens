@@ -1,0 +1,6 @@
+Source deck: Bank_Loan_Processing_Phase2_Review1_GayathriDeviB.pptx
+Structure: 15-slide 16:9 presentation using white backgrounds, navy headings, orange accents, and Segoe UI typography.
+Reusable pattern selected: source slide 12, a two-column enhancement layout with four items per column, a bottom callout, and existing footer/page-number elements.
+Insertion contract: preserve source slides 1-15 unchanged; append slides 16-18 by duplicating slide 12 and rewriting only inherited text slots. All existing shapes, dividers, typography, spacing, and footer styling remain inherited.
+Placeholders: no unresolved empty content placeholders were observed in the selected pattern. Footer page-number text will be rewritten on each appended slide.
+Brand/assets: retain all existing LoanLens branding and master/layout furniture.

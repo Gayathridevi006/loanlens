@@ -1,0 +1,2 @@
+Slides 1-15: no intentional deviations.
+Slides 16-18: duplicate source slide 12; rewrite inherited content and footer number only. No new visual primitives are added.

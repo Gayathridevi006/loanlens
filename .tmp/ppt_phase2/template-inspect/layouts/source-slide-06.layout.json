@@ -1,0 +1,1293 @@
+{
+  "schema": "openai.presentation.layout/v4",
+  "unit": "px",
+  "slide": {
+    "aid": "sl/x8f69ofe",
+    "id": "x8f69ofe",
+    "slide": 6,
+    "layoutId": "/ppt/slideLayouts/slideLayout1.xml",
+    "layoutName": "DEFAULT",
+    "masterLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+    "backgroundColor": "#FFFFFF",
+    "frame": {
+      "left": 0,
+      "top": 0,
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "theme": {
+    "colorSchemeName": "Office",
+    "colors": {
+      "accent1": "#4472C4",
+      "accent2": "#ED7D31",
+      "accent3": "#A5A5A5",
+      "accent4": "#FFC000",
+      "accent5": "#5B9BD5",
+      "accent6": "#70AD47",
+      "dk1": "#000000",
+      "lt1": "#FFFFFF",
+      "dk2": "#44546A",
+      "lt2": "#E7E6E6",
+      "hlink": "#0563C1",
+      "folHlink": "#954F72"
+    },
+    "fontScheme": {
+      "name": "Office",
+      "majorFont": {
+        "latinTypeface": "Calibri Light"
+      },
+      "minorFont": {
+        "latinTypeface": "Calibri"
+      }
+    },
+    "typefaces": [
+      "Calibri",
+      "Calibri Light",
+      "Cambria"
+    ]
+  },
+  "inheritedLayers": [
+    {
+      "scope": "layout",
+      "id": "/ppt/slideLayouts/slideLayout1.xml",
+      "name": "DEFAULT",
+      "parentLayoutId": "/ppt/slideMasters/slideMaster1.xml",
+      "elements": []
+    },
+    {
+      "scope": "master",
+      "id": "/ppt/slideMasters/slideMaster1.xml",
+      "type": "master",
+      "elements": []
+    }
+  ],
+  "elements": [
+    {
+      "order": 1,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/yhg7epsj",
+      "id": "2",
+      "name": "Text 0",
+      "bbox": [
+        57.6,
+        38.4,
+        960,
+        30.72
+      ],
+      "geometry": "rect",
+      "text": "EXTENDED LITERATURE SURVEY",
+      "textPreview": "EXTENDED LITERATURE SURVEY",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "EXTENDED LITERATURE SURVEY"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "EXTENDED LITERATURE SURVEY",
+          "runs": [
+            {
+              "index": 1,
+              "text": "EXTENDED LITERATURE SURVEY",
+              "fontSize": 17.33,
+              "typeface": "Calibri",
+              "color": "#E3993B",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 2,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/zi98nu94",
+      "id": "3",
+      "name": "Text 1",
+      "bbox": [
+        57.6,
+        65.28,
+        1113.6,
+        69.12
+      ],
+      "geometry": "rect",
+      "text": "New Research Track II — Agentic/LLM Pipelines & Privacy-Preserving Learning",
+      "textPreview": "New Research Track II — Agentic/LLM Pipelines & Privacy-Preserving Learning",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 2,
+        "lines": [
+          {
+            "index": 1,
+            "text": "New Research Track II — Agentic/LLM Pipelines &"
+          },
+          {
+            "index": 2,
+            "text": "Privacy-Preserving Learning"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "New Research Track II — Agentic/LLM Pipelines & Privacy-Preserving Learning",
+          "runs": [
+            {
+              "index": 1,
+              "text": "New Research Track II — Agentic/LLM Pipelines & Privacy-Preserving Learning",
+              "fontSize": 37.33,
+              "typeface": "Cambria",
+              "color": "#1E2761",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 3,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/87ipkzal",
+      "id": "4",
+      "name": "Text 2",
+      "bbox": [
+        57.6,
+        144,
+        576,
+        28.8
+      ],
+      "geometry": "rect",
+      "text": "AGENTIC & LLM-BASED DOCUMENT PROCESSING",
+      "textPreview": "AGENTIC & LLM-BASED DOCUMENT PROCESSING",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "AGENTIC & LLM-BASED DOCUMENT PROCESSING"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "AGENTIC & LLM-BASED DOCUMENT PROCESSING",
+          "runs": [
+            {
+              "index": 1,
+              "text": "AGENTIC & LLM-BASED DOCUMENT PROCESSING",
+              "fontSize": 16,
+              "typeface": "Calibri",
+              "color": "#1E2761",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 4,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/98rqt4r6",
+      "id": "5",
+      "name": "Shape 3",
+      "bbox": [
+        57.6,
+        182.4,
+        566.4,
+        177.6
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#EAF0FC"
+    },
+    {
+      "order": 5,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/ml07i9sv",
+      "id": "6",
+      "name": "Text 4",
+      "bbox": [
+        76.8,
+        193.92,
+        528,
+        38.4
+      ],
+      "geometry": "rect",
+      "text": "Ali, 2025 — Software Engineering journal",
+      "textPreview": "Ali, 2025 — Software Engineering journal",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Ali, 2025 — Software Engineering journal"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Ali, 2025 — Software Engineering journal",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Ali, 2025 — Software Engineering journal",
+              "fontSize": 15.33,
+              "typeface": "Calibri",
+              "color": "#1E2761",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 6,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/7m98ru9g",
+      "id": "7",
+      "name": "Text 5",
+      "bbox": [
+        76.8,
+        230.4,
+        528,
+        100.8
+      ],
+      "geometry": "rect",
+      "text": "Empirically shows agentic AI (LLM + RAG + RPA) speeding up underwriting and reducing inconsistency, while flagging explainability and compliance as open problems — the exact trade-off LoanLens avoids by staying rule-based.",
+      "textPreview": "Empirically shows agentic AI (LLM + RAG + RPA) speeding up underwriting and reducing inconsistency, while flagging explainability and com...",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Empirically shows agentic AI (LLM + RAG + RPA) speeding up underwriting and"
+          },
+          {
+            "index": 2,
+            "text": "reducing inconsistency, while flagging explainability and compliance as open"
+          },
+          {
+            "index": 3,
+            "text": "problems — the exact trade-off LoanLens avoids by staying rule-based."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Empirically shows agentic AI (LLM + RAG + RPA) speeding up underwriting and reducing inconsistency, while flagging explainability and compliance as open problems — the exact trade-off LoanLens avoids by staying rule-based.",
+          "lineSpacingPercent": 110000,
+          "runs": [
+            {
+              "index": 1,
+              "text": "Empirically shows agentic AI (LLM + RAG + RPA) speeding up underwriting and reducing inconsistency, while flagging explainability and compliance as open problems — the exact trade-off LoanLens avoids by staying rule-based.",
+              "fontSize": 13.33,
+              "typeface": "Calibri",
+              "color": "#1B1F3B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 7,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/oryp8fah",
+      "id": "8",
+      "name": "Text 6",
+      "bbox": [
+        76.8,
+        332.16,
+        528,
+        23.04
+      ],
+      "geometry": "rect",
+      "text": "article.sapub.org/10.5923.j.se.20251201.01.html",
+      "textPreview": "article.sapub.org/10.5923.j.se.20251201.01.html",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "article.sapub.org/10.5923.j.se.20251201.01.html"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "article.sapub.org/10.5923.j.se.20251201.01.html",
+          "runs": [
+            {
+              "index": 1,
+              "text": "article.sapub.org/10.5923.j.se.20251201.01.html",
+              "fontSize": 11.33,
+              "typeface": "Calibri",
+              "color": "#1155CC"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 8,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/pc76hkr2",
+      "id": "9",
+      "name": "Shape 7",
+      "bbox": [
+        57.6,
+        379.2,
+        566.4,
+        177.6
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#EAF0FC"
+    },
+    {
+      "order": 9,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/h4bupgn6",
+      "id": "10",
+      "name": "Text 8",
+      "bbox": [
+        76.8,
+        390.72,
+        528,
+        38.4
+      ],
+      "geometry": "rect",
+      "text": "Richardson et al., 2026 — arXiv preprint",
+      "textPreview": "Richardson et al., 2026 — arXiv preprint",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Richardson et al., 2026 — arXiv preprint"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Richardson et al., 2026 — arXiv preprint",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Richardson et al., 2026 — arXiv preprint",
+              "fontSize": 15.33,
+              "typeface": "Calibri",
+              "color": "#1E2761",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 10,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/w32twb6l",
+      "id": "11",
+      "name": "Text 9",
+      "bbox": [
+        76.8,
+        427.2,
+        528,
+        100.8
+      ],
+      "geometry": "rect",
+      "text": "Compares single-LLM, naive RAG, and multi-agent “Agentic RAG” underwriting pipelines; the structured agent avoids unsupported decisions on missing-information cases — supports keeping any future LLM use as an optional, human-supervised summary layer.",
+      "textPreview": "Compares single-LLM, naive RAG, and multi-agent “Agentic RAG” underwriting pipelines; the structured agent avoids unsupported decisions o...",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 4,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Compares single-LLM, naive RAG, and multi-agent “Agentic RAG” underwriting"
+          },
+          {
+            "index": 2,
+            "text": "pipelines; the structured agent avoids unsupported decisions on missing-information"
+          },
+          {
+            "index": 3,
+            "text": "cases — supports keeping any future LLM use as an optional, human-supervised"
+          },
+          {
+            "index": 4,
+            "text": "summary layer."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Compares single-LLM, naive RAG, and multi-agent “Agentic RAG” underwriting pipelines; the structured agent avoids unsupported decisions on missing-information cases — supports keeping any future LLM use as an optional, human-supervised summary layer.",
+          "lineSpacingPercent": 110000,
+          "runs": [
+            {
+              "index": 1,
+              "text": "Compares single-LLM, naive RAG, and multi-agent “Agentic RAG” underwriting pipelines; the structured agent avoids unsupported decisions on missing-information cases — supports keeping any future LLM use as an optional, human-supervised summary layer.",
+              "fontSize": 13.33,
+              "typeface": "Calibri",
+              "color": "#1B1F3B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 11,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/v2tcn650",
+      "id": "12",
+      "name": "Text 10",
+      "bbox": [
+        76.8,
+        528.96,
+        528,
+        23.04
+      ],
+      "geometry": "rect",
+      "text": "arxiv.org/abs/2607.07858",
+      "textPreview": "arxiv.org/abs/2607.07858",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "arxiv.org/abs/2607.07858"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "arxiv.org/abs/2607.07858",
+          "runs": [
+            {
+              "index": 1,
+              "text": "arxiv.org/abs/2607.07858",
+              "fontSize": 11.33,
+              "typeface": "Calibri",
+              "color": "#1155CC"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 12,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/u1kbu1ov",
+      "id": "13",
+      "name": "Text 11",
+      "bbox": [
+        657.6,
+        144,
+        576,
+        28.8
+      ],
+      "geometry": "rect",
+      "text": "PRIVACY-PRESERVING / FEDERATED CREDIT MODELS",
+      "textPreview": "PRIVACY-PRESERVING / FEDERATED CREDIT MODELS",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "PRIVACY-PRESERVING / FEDERATED CREDIT MODELS"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "PRIVACY-PRESERVING / FEDERATED CREDIT MODELS",
+          "runs": [
+            {
+              "index": 1,
+              "text": "PRIVACY-PRESERVING / FEDERATED CREDIT MODELS",
+              "fontSize": 16,
+              "typeface": "Calibri",
+              "color": "#1E2761",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 13,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/5svutgni",
+      "id": "14",
+      "name": "Shape 12",
+      "bbox": [
+        657.6,
+        182.4,
+        566.4,
+        177.6
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#EAF0FC"
+    },
+    {
+      "order": 14,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/47mt0b6x",
+      "id": "15",
+      "name": "Text 13",
+      "bbox": [
+        676.8,
+        193.92,
+        528,
+        38.4
+      ],
+      "geometry": "rect",
+      "text": "Multi-Bank PPFL Study, 2026 (IJSET)",
+      "textPreview": "Multi-Bank PPFL Study, 2026 (IJSET)",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Multi-Bank PPFL Study, 2026 (IJSET)"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Multi-Bank PPFL Study, 2026 (IJSET)",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Multi-Bank PPFL Study, 2026 (IJSET)",
+              "fontSize": 15.33,
+              "typeface": "Calibri",
+              "color": "#1E2761",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 15,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/j6dcr65c",
+      "id": "16",
+      "name": "Text 14",
+      "bbox": [
+        676.8,
+        230.4,
+        528,
+        100.8
+      ],
+      "geometry": "rect",
+      "text": "A federated framework across banks reaches accuracy close to a centralized model while keeping raw applicant data local — reinforces LoanLens's own local-only processing stance, extended to multi-branch deployments.",
+      "textPreview": "A federated framework across banks reaches accuracy close to a centralized model while keeping raw applicant data local — reinforces Loan...",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "A federated framework across banks reaches accuracy close to a centralized model"
+          },
+          {
+            "index": 2,
+            "text": "while keeping raw applicant data local — reinforces LoanLens's own local-only"
+          },
+          {
+            "index": 3,
+            "text": "processing stance, extended to multi-branch deployments."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "A federated framework across banks reaches accuracy close to a centralized model while keeping raw applicant data local — reinforces LoanLens's own local-only processing stance, extended to multi-branch deployments.",
+          "lineSpacingPercent": 110000,
+          "runs": [
+            {
+              "index": 1,
+              "text": "A federated framework across banks reaches accuracy close to a centralized model while keeping raw applicant data local — reinforces LoanLens's own local-only processing stance, extended to multi-branch deployments.",
+              "fontSize": 13.33,
+              "typeface": "Calibri",
+              "color": "#1B1F3B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 16,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/i54bylor",
+      "id": "17",
+      "name": "Text 15",
+      "bbox": [
+        676.8,
+        332.16,
+        528,
+        23.04
+      ],
+      "geometry": "rect",
+      "text": "ijset.in/privacy-preserving-federated...",
+      "textPreview": "ijset.in/privacy-preserving-federated...",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "ijset.in/privacy-preserving-federated..."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "ijset.in/privacy-preserving-federated...",
+          "runs": [
+            {
+              "index": 1,
+              "text": "ijset.in/privacy-preserving-federated...",
+              "fontSize": 11.33,
+              "typeface": "Calibri",
+              "color": "#1155CC"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 17,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/twfux0ne",
+      "id": "18",
+      "name": "Shape 16",
+      "bbox": [
+        657.6,
+        379.2,
+        566.4,
+        177.6
+      ],
+      "geometry": "roundRect",
+      "fillColor": "#EAF0FC"
+    },
+    {
+      "order": 18,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/svmt4v6t",
+      "id": "19",
+      "name": "Text 17",
+      "bbox": [
+        676.8,
+        390.72,
+        528,
+        38.4
+      ],
+      "geometry": "rect",
+      "text": "Farooq et al., 2025 — Applied Comp. Intelligence & Soft Computing",
+      "textPreview": "Farooq et al., 2025 — Applied Comp. Intelligence & Soft Computing",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Farooq et al., 2025 — Applied Comp. Intelligence & Soft Computing"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Farooq et al., 2025 — Applied Comp. Intelligence & Soft Computing",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Farooq et al., 2025 — Applied Comp. Intelligence & Soft Computing",
+              "fontSize": 15.33,
+              "typeface": "Calibri",
+              "color": "#1E2761",
+              "bold": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 19,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/cbe5g3ih",
+      "id": "20",
+      "name": "Text 18",
+      "bbox": [
+        676.8,
+        427.2,
+        528,
+        100.8
+      ],
+      "geometry": "rect",
+      "text": "Combines adaptive federated averaging with class-imbalance handling for credit-card fraud detection, extending the same privacy-preserving pattern from credit scoring into fraud detection.",
+      "textPreview": "Combines adaptive federated averaging with class-imbalance handling for credit-card fraud detection, extending the same privacy-preservin...",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 3,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Combines adaptive federated averaging with class-imbalance handling for"
+          },
+          {
+            "index": 2,
+            "text": "credit-card fraud detection, extending the same privacy-preserving pattern from"
+          },
+          {
+            "index": 3,
+            "text": "credit scoring into fraud detection."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Combines adaptive federated averaging with class-imbalance handling for credit-card fraud detection, extending the same privacy-preserving pattern from credit scoring into fraud detection.",
+          "lineSpacingPercent": 110000,
+          "runs": [
+            {
+              "index": 1,
+              "text": "Combines adaptive federated averaging with class-imbalance handling for credit-card fraud detection, extending the same privacy-preserving pattern from credit scoring into fraud detection.",
+              "fontSize": 13.33,
+              "typeface": "Calibri",
+              "color": "#1B1F3B"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 20,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/dcnm98zm",
+      "id": "21",
+      "name": "Text 19",
+      "bbox": [
+        676.8,
+        528.96,
+        528,
+        23.04
+      ],
+      "geometry": "rect",
+      "text": "doi.org/10.1155/acis/7116768",
+      "textPreview": "doi.org/10.1155/acis/7116768",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "doi.org/10.1155/acis/7116768"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "doi.org/10.1155/acis/7116768",
+          "runs": [
+            {
+              "index": 1,
+              "text": "doi.org/10.1155/acis/7116768",
+              "fontSize": 11.33,
+              "typeface": "Calibri",
+              "color": "#1155CC"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 21,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/qpwnet0b",
+      "id": "22",
+      "name": "Text 20",
+      "bbox": [
+        57.6,
+        590.4,
+        1161.6,
+        48
+      ],
+      "geometry": "rect",
+      "text": "Source: extended literature review conducted for Phase 2, building on the Phase 1 reference set. Two more papers (fairness and governance) follow on the next slide.",
+      "textPreview": "Source: extended literature review conducted for Phase 2, building on the Phase 1 reference set. Two more papers (fairness and governance...",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "Source: extended literature review conducted for Phase 2, building on the Phase 1 reference set. Two more papers (fairness and governance) follow on the next slide."
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "Source: extended literature review conducted for Phase 2, building on the Phase 1 reference set. Two more papers (fairness and governance) follow on the next slide.",
+          "runs": [
+            {
+              "index": 1,
+              "text": "Source: extended literature review conducted for Phase 2, building on the Phase 1 reference set. Two more papers (fairness and governance) follow on the next slide.",
+              "fontSize": 13.33,
+              "typeface": "Calibri",
+              "color": "#5B6484",
+              "italic": true
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 22,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/bq547yhw",
+      "id": "23",
+      "name": "Text 21",
+      "bbox": [
+        48,
+        685.44,
+        672,
+        28.8
+      ],
+      "geometry": "rect",
+      "text": "LOANLENS AI  |  PHASE 2 REVIEW",
+      "textPreview": "LOANLENS AI  |  PHASE 2 REVIEW",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "LOANLENS AI  |  PHASE 2 REVIEW"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "LOANLENS AI  |  PHASE 2 REVIEW",
+          "resolvedTextStyle": {
+            "alignment": "left"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "LOANLENS AI  |  PHASE 2 REVIEW",
+              "fontSize": 12,
+              "typeface": "Calibri",
+              "color": "#5B6484"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    },
+    {
+      "order": 23,
+      "kind": "shape",
+      "scope": "slide",
+      "aid": "sh/0fy5k3id",
+      "id": "24",
+      "name": "Text 22",
+      "bbox": [
+        1155.17,
+        685.44,
+        76.8,
+        28.8
+      ],
+      "geometry": "rect",
+      "text": "5 / 15",
+      "textPreview": "5 / 15",
+      "resolvedFontSize": 24,
+      "resolvedTextStyle": {
+        "anchor": 2,
+        "fontSize": 24,
+        "typeface": "Calibri",
+        "color": "tx1",
+        "alignment": "left",
+        "verticalAlignment": "middle",
+        "wrap": "square",
+        "insets": {
+          "top": 4.8,
+          "right": 9.6,
+          "bottom": 4.8,
+          "left": 9.6
+        }
+      },
+      "textLayout": {
+        "lineCount": 1,
+        "lines": [
+          {
+            "index": 1,
+            "text": "5 / 15"
+          }
+        ]
+      },
+      "paragraphs": [
+        {
+          "index": 1,
+          "text": "5 / 15",
+          "resolvedTextStyle": {
+            "alignment": "right"
+          },
+          "runs": [
+            {
+              "index": 1,
+              "text": "5 / 15",
+              "fontSize": 12,
+              "typeface": "Calibri",
+              "color": "#5B6484"
+            }
+          ],
+          "marginLeft": 0
+        }
+      ]
+    }
+  ],
+  "composeRuns": []
+}

@@ -49,6 +49,8 @@ stop_services() {
 trap stop_services INT TERM EXIT
 
 cd "$PROJECT_DIR" || exit 1
+echo "Applying database migrations..."
+"$PYTHON_BIN" -m alembic upgrade head || exit 1
 echo "Starting backend: http://localhost:8000"
 echo "API documentation: http://localhost:8000/docs"
 "$PYTHON_BIN" -m uvicorn backend.app:app --reload --host 0.0.0.0 --port 8000 &
