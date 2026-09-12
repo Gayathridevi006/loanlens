@@ -78,3 +78,13 @@ def test_auth_can_be_enforced_without_blocking_health(client, monkeypatch):
     monkeypatch.setenv("AUTH_REQUIRED", "true")
     assert client.get("/applications").status_code == 401
     assert client.get("/health").status_code == 200
+
+
+def test_readiness_checks_database_and_vector_backend(client):
+    response = client.get("/ready")
+    assert response.status_code == 200
+    assert response.json() == {
+        "status": "ready",
+        "database": "connected",
+        "vector_store": "local-cosine-fallback",
+    }

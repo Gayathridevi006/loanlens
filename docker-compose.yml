@@ -1,16 +1,126 @@
+name: loanlens
+
+x-backend-environment: &backend-environment
+  DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-loanlens}:${POSTGRES_PASSWORD:-loanlens-dev-only}@db:5432/${POSTGRES_DB:-loanlens}
+  POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-loanlens-dev-only}
+  DATA_ENCRYPTION_KEY: ${DATA_ENCRYPTION_KEY:-}
+  JWT_SECRET: ${JWT_SECRET:-loanlens-development-secret-change-me}
+  AUTH_REQUIRED: ${AUTH_REQUIRED:-false}
+  AUTH_BOOTSTRAP_SECRET: ${AUTH_BOOTSTRAP_SECRET:-}
+  CORS_ORIGINS: http://localhost:${LOANLENS_PORT:-3000},http://127.0.0.1:${LOANLENS_PORT:-3000}
+  LOG_LEVEL: ${LOG_LEVEL:-INFO}
+  MAX_UPLOAD_MB: ${MAX_UPLOAD_MB:-25}
+  AUDIT_RETENTION_DAYS: ${AUDIT_RETENTION_DAYS:-2555}
+  JOB_RETENTION_DAYS: ${JOB_RETENTION_DAYS:-30}
+  OIDC_ISSUER: ${OIDC_ISSUER:-}
+  OIDC_CLIENT_ID: ${OIDC_CLIENT_ID:-}
+  CREDIT_BUREAU_URL: ${CREDIT_BUREAU_URL:-}
+  CREDIT_BUREAU_TOKEN: ${CREDIT_BUREAU_TOKEN:-}
+  NARRATIVE_LLM_URL: ${NARRATIVE_LLM_URL:-}
+  NARRATIVE_LLM_TOKEN: ${NARRATIVE_LLM_TOKEN:-}
+
 services:
   db:
-    image: pgvector/pgvector:pg17
-    environment: {POSTGRES_DB: loanlens, POSTGRES_USER: loanlens, POSTGRES_PASSWORD: loanlens}
-    volumes: [loanlens_data:/var/lib/postgresql/data]
-    healthcheck: {test: ["CMD-SHELL", "pg_isready -U loanlens"], interval: 5s, timeout: 3s, retries: 10}
+    image: pgvector/pgvector:0.8.6-pg17
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-loanlens}
+      POSTGRES_USER: ${POSTGRES_USER:-loanlens}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-loanlens-dev-only}
+    volumes:
+      - loanlens_postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 10s
+    networks:
+      - data
+
+  migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    command: ["python", "-m", "alembic", "upgrade", "head"]
+    environment: *backend-environment
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: "no"
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m,mode=1777
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - data
+
   backend:
-    build: {context: ., dockerfile: Dockerfile.backend}
-    environment: {DATABASE_URL: postgresql+psycopg://loanlens:loanlens@db:5432/loanlens, CORS_ORIGINS: "http://localhost:3000,http://127.0.0.1:3000", AUTH_REQUIRED: "false"}
-    ports: ["8000:8000"]
-    depends_on: {db: {condition: service_healthy}}
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    init: true
+    restart: unless-stopped
+    environment:
+      <<: *backend-environment
+      WEB_CONCURRENCY: ${WEB_CONCURRENCY:-2}
+    ports:
+      - "127.0.0.1:${LOANLENS_API_PORT:-8000}:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    read_only: true
+    tmpfs:
+      - /tmp:size=256m,mode=1777
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/ready', timeout=2)"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 20s
+    stop_grace_period: 30s
+    networks:
+      - app
+      - data
+
   frontend:
-    build: {context: ., dockerfile: Dockerfile.frontend}
-    ports: ["3000:80"]
-    depends_on: [backend]
-volumes: {loanlens_data: {}}
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+      args:
+        VITE_API_URL: /api
+    init: true
+    restart: unless-stopped
+    ports:
+      - "${LOANLENS_PORT:-3000}:8080"
+    depends_on:
+      backend:
+        condition: service_healthy
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+      - /var/cache/nginx:size=16m,mode=0755
+      - /var/run:size=1m,mode=0755
+    security_opt:
+      - no-new-privileges:true
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://127.0.0.1:8080/healthz"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    networks:
+      - app
+
+volumes:
+  loanlens_postgres:
+
+networks:
+  app:
+  data:
+    internal: true

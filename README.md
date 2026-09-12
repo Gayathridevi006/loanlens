@@ -21,6 +21,31 @@ LoanLens is a local-first, full-stack agentic RAG system for loan intake, docume
 
 The Docker stack uses the `pgvector/pgvector:pg17` image. SQLite remains supported for local development and tests; it uses the same embeddings with an in-process cosine-search fallback.
 
+## Docker Compose
+
+The complete stack runs as four containers: the Nginx/React frontend, FastAPI backend, one-shot Alembic migration service, and PostgreSQL 17 with pgvector. Nginx serves the SPA and proxies `/api` to FastAPI, so the application has a single browser-facing origin.
+
+```bash
+cp .env.docker.example .env
+# Fill DATA_ENCRYPTION_KEY, JWT_SECRET, POSTGRES_PASSWORD and optionally AUTH_BOOTSTRAP_SECRET.
+docker compose up --build -d
+docker compose ps
+```
+
+Open `http://localhost:3000`. Direct API documentation is bound to the local machine at `http://127.0.0.1:8000/docs`. PostgreSQL is isolated on an internal Docker network and persists in the `loanlens_postgres` named volume.
+
+Useful operations:
+
+```bash
+docker compose logs -f backend frontend
+docker compose run --rm migrate
+docker compose down
+# Explicitly removes the database volume as well:
+docker compose down --volumes
+```
+
+For production, set `AUTH_REQUIRED=true`, use secrets from the deployment platform rather than committing `.env`, terminate TLS at the ingress/load balancer, and remove the backend host-port mapping if direct API access is unnecessary. The containers run with read-only filesystems, writable temporary memory only, non-root application users, health checks, and migration-gated startup.
+
 ## Local setup
 
 Prerequisites: Python 3.12+, Node.js 22+, and npm.

@@ -1,20 +1,88 @@
+# Operating-system and editor files
 .DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Secrets and local configuration
 .env
 .env.*
 !.env.example
+!.env.docker.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Python environments, bytecode, packaging and test output
 .venv/
+venv/
+env/
+ENV/
 __pycache__/
 *.py[cod]
-*.db
-*.sqlite*
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.tox/
+.nox/
 .coverage
+.coverage.*
+coverage.xml
 htmlcov/
 
-frontend/node_modules/
-frontend/dist/
-frontend/*.tsbuildinfo
+# Node/Vite dependencies and generated output
+node_modules/
+.vite/
+.npm/
+.yarn/
+coverage/
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
+# Runtime state
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sqlite-*
 *.log
+logs/
 tmp/
+temp/
+.tmp/
+.cache/
+uploads/
 
+# Generated ML datasets, checkpoints and experiment output
+models/governed/
+models/*.joblib
+models/*.metrics.json
+checkpoints/
+mlruns/
+wandb/
+
+# The bundled baseline is an intentional runtime fixture.
+!models/fraud_isolation_forest.joblib
+
+# Generated presentation inspection/render artifacts
+*.inspect.ndjson
+*.pptx.inspect.ndjson
+
+# Raw lending documents can contain customer PII and financial data.
+Data-sample/
+archive/
+!Data-sample/.gitkeep
+!archive/.gitkeep

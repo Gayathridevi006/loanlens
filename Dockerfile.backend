@@ -1,11 +1,42 @@
-FROM python:3.12-slim
+FROM python:3.12.14-slim-trixie AS wheels
+
+ENV PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PIP_NO_CACHE_DIR=1
+
+WORKDIR /build
+COPY backend/requirements.txt ./requirements.txt
+RUN pip wheel --wheel-dir=/wheels -r requirements.txt
+
+FROM python:3.12.14-slim-trixie AS runtime
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1 \
+    PATH="/home/loanlens/.local/bin:${PATH}"
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+        libgomp1 \
+        poppler-utils \
+        tesseract-ocr \
+    && rm -rf /var/lib/apt/lists/* \
+    && groupadd --system --gid 10001 loanlens \
+    && useradd --system --uid 10001 --gid loanlens --create-home loanlens
+
 WORKDIR /app
-RUN apt-get update && apt-get install -y --no-install-recommends tesseract-ocr poppler-utils && rm -rf /var/lib/apt/lists/*
-COPY backend/requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-COPY backend backend
-COPY models models
-COPY alembic.ini .
-COPY migrations migrations
+COPY --from=wheels /wheels /wheels
+COPY backend/requirements.txt /tmp/requirements.txt
+RUN pip install --no-index --find-links=/wheels -r /tmp/requirements.txt \
+    && rm -rf /wheels /tmp/requirements.txt
+
+COPY --chown=loanlens:loanlens backend ./backend
+COPY --chown=loanlens:loanlens migrations ./migrations
+COPY --chown=loanlens:loanlens models ./models
+COPY --chown=loanlens:loanlens alembic.ini ./alembic.ini
+COPY --chown=loanlens:loanlens docker/backend-entrypoint.sh ./docker/backend-entrypoint.sh
+
+USER loanlens
 EXPOSE 8000
-CMD ["sh","-c","alembic upgrade head && uvicorn backend.app:app --host 0.0.0.0 --port 8000"]
+
+ENTRYPOINT ["sh", "/app/docker/backend-entrypoint.sh"]
+CMD ["sh", "-c", "exec uvicorn backend.app:app --host 0.0.0.0 --port 8000 --workers ${WEB_CONCURRENCY:-2}"]

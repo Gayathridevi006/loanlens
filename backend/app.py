@@ -8,7 +8,7 @@ from fastapi import BackgroundTasks, Depends, FastAPI, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import Response, StreamingResponse
 from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
-from sqlalchemy import or_
+from sqlalchemy import or_, text
 from sqlalchemy.orm import Session
 from .agentic_rag import build_evidence, plan_query, run_agentic_assessment
 from .database import get_db
@@ -136,6 +136,16 @@ def execute_agent_query(obj: Application, db: Session, question: str | None = No
 
 @app.get("/health")
 def health(): return {"status":"healthy", "service":"loanlens-api", "version":"2.0.0"}
+
+
+@app.get("/ready")
+def ready(db: Session = Depends(get_db)):
+    try:
+        db.execute(text("SELECT 1"))
+    except Exception as exc:
+        logger.warning("readiness_check_failed error=%s", type(exc).__name__)
+        raise HTTPException(503, "Database is not ready") from exc
+    return {"status": "ready", "database": "connected", "vector_store": vector_backend(db)["engine"]}
 
 @app.get("/metrics", include_in_schema=False)
 def metrics(): return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
